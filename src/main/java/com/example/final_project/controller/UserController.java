@@ -12,6 +12,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/all")
+    public Iterable<User> getAllUsers(){
+        return userService.findAllUsers();
+    }
+
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userService.registerUser(user);
