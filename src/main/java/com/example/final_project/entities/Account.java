@@ -1,9 +1,22 @@
 package com.example.final_project.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "accounts")
 public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private double balance;
     private String accountType;
     private int accountNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //constructor
 
@@ -13,9 +26,7 @@ public class Account {
         this.accountNumber = accountNumber;
     }
     public Account(){}
-
     //setter/ getter
-
     public double getBalance() {
         return balance;
     }
@@ -39,4 +50,9 @@ public class Account {
     public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
+
