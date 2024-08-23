@@ -10,10 +10,7 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    List<Transaction> findByAccountNumber(Long accountNumber);
-    List<Transaction> findByUserId(Long userId);
     List<Transaction> findByTransactionType(String transactionType);
     List<Transaction> findByTimestampBetween(LocalDateTime startDate, LocalDateTime endDate);
-    List<Transaction> findByFromAccountNumber(Long accountNumber);
-    void deleteByAccountNumber(Long accountNumber);
+    List<Transaction> findByFromAccountNumber(Long fromAccountNumber);
 }

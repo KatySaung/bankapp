@@ -35,7 +35,7 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Long accountNumber) {
-        transactionRepository.deleteByAccountNumber(accountNumber);
+        //transactionRepository.deleteByAccountNumber(accountNumber);
     }
 
     public List<Transaction> getTransactionsByAccountNumber(Long accountNumber) {
@@ -47,7 +47,8 @@ public class TransactionService {
     }
 
     public List<Transaction> getTransactionsByUserId(Long userId) {
-        return transactionRepository.findByUserId(userId);
+        return null;
+        //return transactionRepository.findByUserId(userId);
 
     }
 
@@ -56,6 +57,7 @@ public class TransactionService {
     }
 
     public List<Transaction> findByAccountNumber(Long accountNumber) {
-        return transactionRepository.findByAccountNumber(accountNumber);
+        return null;
+        //return transactionRepository.findByAccountNumber(accountNumber);
     }
 }
