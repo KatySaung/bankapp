@@ -1,11 +1,13 @@
 package com.example.final_project.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "accounts")
+@Data
 public class Account {
 
     @Id

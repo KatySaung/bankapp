@@ -1,5 +1,7 @@
 package com.example.final_project.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.example.final_project.entities.Transaction;
 import com.example.final_project.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +34,15 @@ public class TransactionService {
         return transactionRepository.save(updatedTransaction);
     }
 
-    public void deleteTransaction(Long id) {
-        transactionRepository.deleteById(id);
+    public void deleteTransaction(Long accountNumber) {
+        transactionRepository.deleteByAccountNumber(accountNumber);
     }
 
-    public List<Transaction> getTransactionsByAccountId(Long accountId) {
-        return transactionRepository.findByFromAccountId(accountId);
+    public List<Transaction> getTransactionsByAccountNumber(Long accountNumber) {
+        return transactionRepository.findByFromAccountNumber(accountNumber);
     }
 
-    public List<Transaction> getTransactionsByDate(String startDate, String endDate) {
+    public List<Transaction> getTransactionsByDate(LocalDateTime startDate, LocalDateTime endDate) {
         return transactionRepository.findByTimestampBetween(startDate, endDate);
     }
 
@@ -53,7 +55,7 @@ public class TransactionService {
         return transactionRepository.findByTransactionType(transactionType);
     }
 
-    public List<Transaction> findByAccountId(Long accountId) {
-        return transactionRepository.findByAccountId(accountId);
+    public List<Transaction> findByAccountNumber(Long accountNumber) {
+        return transactionRepository.findByAccountNumber(accountNumber);
     }
 }

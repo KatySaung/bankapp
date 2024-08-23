@@ -1,6 +1,7 @@
 package com.example.final_project.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +10,13 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     private String username;
     private String password;

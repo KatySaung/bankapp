@@ -1,6 +1,7 @@
 package com.example.final_project.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "transactions")
+@Data
 public class Transaction {
 
     // Getters and Setters
@@ -18,10 +20,10 @@ public class Transaction {
     private Long id;
 
     @Column(nullable = false)
-    private Long fromAccountId;
+    private Long fromAccountNumber;
 
     @Column(nullable = true)
-    private Long toAccountId;
+    private Long toAccountNumber;
 
     @Column(nullable = false)
     private Double amount;
@@ -35,9 +37,9 @@ public class Transaction {
     // Constructors
     public Transaction() {}
 
-    public Transaction(Long fromAccountId, Long toAccountId, Double amount, String transactionType) {
-        this.fromAccountId = fromAccountId;
-        this.toAccountId = toAccountId;
+    public Transaction(Long fromAccountNumber, Long toAccountNumber, Double amount, String transactionType) {
+        this.fromAccountNumber = fromAccountNumber;
+        this.toAccountNumber = toAccountNumber;
         this.amount = amount;
         this.transactionType = transactionType;
         this.timestamp = LocalDateTime.now();
