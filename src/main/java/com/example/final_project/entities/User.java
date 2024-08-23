@@ -16,8 +16,15 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
+
     // Constructor
     public User(String username, String password) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
         this.username = username;
         this.password = password;
     }
@@ -38,6 +45,9 @@ public class User {
     }
 
     public void setUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
         this.username = username;
     }
 
@@ -46,6 +56,9 @@ public class User {
     }
 
     public void setPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
         this.password = password;
     }
 
@@ -57,4 +70,3 @@ public class User {
         this.accounts = accounts;
     }
 }
-
