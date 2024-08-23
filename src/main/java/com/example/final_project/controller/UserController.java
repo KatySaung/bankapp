@@ -13,11 +13,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/all")
-    public Iterable<User> getAllUsers() {
-        return userService.findAll();
-    }
-    public User getUser(@PathVariable Long userId) {
-        return userService.findById(userId).orElse(null);
+    public Iterable<User> getAllUsers(){
+        return userService.findAllUsers();
     }
 
     @PostMapping("/register")
