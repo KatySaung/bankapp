@@ -17,10 +17,10 @@ INSERT INTO accounts (account_user_id, account_number, account_type, balance) VA
 ON CONFLICT (account_number) DO NOTHING;
 
 -- Insert data into transactions table
-INSERT INTO transactions (from_account_id, to_account_id, amount, transaction_type, timestamp) VALUES
+INSERT INTO transactions (from_account_number, to_account_number, amount, transaction_type, timestamp) VALUES
 (1, 2, 100.00, 'TRANSFER', NOW())
 ON CONFLICT DO NOTHING;
 
-INSERT INTO transactions (from_account_id, to_account_id, amount, transaction_type, timestamp) VALUES
+INSERT INTO transactions (from_account_number, to_account_number, amount, transaction_type, timestamp) VALUES
 (2, NULL, 50.00, 'WITHDRAWAL', NOW())
 ON CONFLICT DO NOTHING;

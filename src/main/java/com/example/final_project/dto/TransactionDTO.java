@@ -8,18 +8,18 @@ import java.time.LocalDateTime;
 @Setter
 public class TransactionDTO {
     private Long id;
-    private Long fromAccountId;
-    private Long toAccountId;
+    private Long fromAccountNumber;
+    private Long toAccountNumber;
     private Double amount;
     private String transactionType;
     private LocalDateTime timestamp;
     // getters and setters
 
 
-    public TransactionDTO(Long id, Long fromAccountId, Long toAccountId, Double amount, String transactionType, LocalDateTime timestamp) {
+    public TransactionDTO(Long id, Long fromAccountNumber, Long toAccountNumber, Double amount, String transactionType, LocalDateTime timestamp) {
         this.id = id;
-        this.fromAccountId = fromAccountId;
-        this.toAccountId = toAccountId;
+        this.fromAccountNumber = fromAccountNumber;
+        this.toAccountNumber = toAccountNumber;
         this.amount = amount;
         this.transactionType = transactionType;
         this.timestamp = timestamp;
