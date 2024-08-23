@@ -32,7 +32,7 @@ public class AccountService {
 
         //generate account number
         private int generateAccountNumber(){
-            int accountNumber;
+//            int accountNumber;
             do {
                 accountNumber = generateAccountNumber();
             } while (accountRepository.existsByAccountNumber(accountNumber)){

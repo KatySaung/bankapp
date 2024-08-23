@@ -1,6 +1,8 @@
 package com.example.final_project.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "accounts")
@@ -10,10 +12,18 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //setter/ getter
+    @Setter
+    @Getter
     private double balance;
+    @Setter
+    @Getter
     private String accountType;
+    @Setter
+    @Getter
     private int accountNumber;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -26,33 +36,6 @@ public class Account {
         this.accountNumber = accountNumber;
     }
     public Account(){}
-    //setter/ getter
-    public double getBalance() {
-        return balance;
-    }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
 
