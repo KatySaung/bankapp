@@ -103,11 +103,7 @@ public class UserService {
         }
     }
 
-    public Iterable<User> findAll() {
+    public Iterable<User> findAllUsers() {
         return userRepository.findAll();
-    }
-
-    public Optional<User> findById(Long userId) {
-        return userRepository.findById(userId);
     }
 }
