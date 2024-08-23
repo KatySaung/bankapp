@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Random;
+
 @Entity
 @Table(name = "accounts")
 @Data
@@ -25,19 +28,27 @@ public class Account {
     @Getter
     private int accountNumber;
 
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     //constructor
-
-    public Account(double balance, String accountType, int accountNumber) {
+    public Account() {}
+    public Account(
+            Long id,
+            double balance,
+            String accountType,
+            int accountNumber,
+            User user) {
+        this.id = id;
         this.balance = balance;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
+        this.user = user;
     }
-    public Account(){}
+
 
 }
 
