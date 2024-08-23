@@ -12,6 +12,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/all")
+    public Iterable<User> getAllUsers() {
+        return userService.findAll();
+    }
+    public User getUser(@PathVariable Long userId) {
+        return userService.findById(userId).orElse(null);
+    }
+
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userService.registerUser(user);

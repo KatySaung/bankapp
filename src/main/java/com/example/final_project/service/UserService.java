@@ -102,4 +102,12 @@ public class UserService {
             throw new IllegalArgumentException("Invalid password.");
         }
     }
+
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> findById(Long userId) {
+        return userRepository.findById(userId);
+    }
 }
