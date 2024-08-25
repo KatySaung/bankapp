@@ -8,20 +8,22 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
-@Table(name = "users")
+@Table(name = "account_user", schema = "banking")
 @Data
 public class User {
 
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
 
-    @Setter
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
 
@@ -54,4 +56,14 @@ public class User {
         this.password = password;
     }
 
+    public void addAccount(Account account) {
+        accounts.add(account);
+        account.setUser(this);
+    }
+
+    public void removeAccount(Account account) {
+        accounts.remove(account);
+        account.setUser(null);
+    }
 }
+

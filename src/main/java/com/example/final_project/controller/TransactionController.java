@@ -1,29 +1,25 @@
 package com.example.final_project.controller;
 
-import com.example.final_project.entities.Transaction;
+import com.example.final_project.dto.TransactionDTO;
 import com.example.final_project.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/transaction")
 public class TransactionController {
 
     @Autowired
- private TransactionService transactionService;
-    @PostMapping
-public ResponseEntity<List<Transaction>> createTransaction(@RequestBody Transaction transaction) {
-        List<Transaction> savedTransactions = transactionService.createTransaction(transaction);
-        return ResponseEntity.ok(savedTransactions);
-    }
+    private TransactionService transactionService;
 
-    @GetMapping
-    public ResponseEntity<List<Transaction>> getAllTransactions() {
-        List<Transaction> transactions = transactionService.getAllTransactions();
-        return ResponseEntity.ok(transactions);
+    @PostMapping
+    public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionDTO transactionDTO) {
+        TransactionDTO newTransaction = transactionService.createTransaction(transactionDTO);
+        return ResponseEntity.ok(newTransaction);
     }
 }
 

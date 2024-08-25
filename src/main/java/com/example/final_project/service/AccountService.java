@@ -1,51 +1,49 @@
-//package com.example.final_project.service;
-//
-//import com.example.final_project.entities.Account;
-//import com.example.final_project.entities.User;
-//import com.example.final_project.repository.AccountRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class AccountService {
-//
-//    @Autowired
-//    private AccountRepository accountRepository;
-//
-//    public Account createAccount(double balance, String accountType, int accountNumber) {
-//        if (balance < 0) {
-//            throw new IllegalArgumentException("Balance cannot be negative");
-//
-//        }
-//
-//        // int accountNumber = generateAccountNumber();
-//        //need if statement below
-//        //if account number exists in the account repo than throw an runtime exception error ("Account number already exists")
-//
-////        Account account = new Account();
-////        account.setAccountNumber(accountNumber);
-////        account.setAccountType(accountType);
-////        account.setBalance(balance);
-//
-////        //account.setUser(user); GIVING ERROR FORCING NEW USER HERE
-////        return accountRepository.save(account);
-////
-////        //generate account number
-////        private int generateAccountNumber(){
-//////            int accountNumber;
-////            do {
-////                accountNumber = generateAccountNumber();
-////            } while (accountRepository.existsByAccountNumber(accountNumber)){
-////                return accountNumber;
-////            }
-////        }
-////
-////        //method to generate a unique account number? Make sure number generated in account number is unique.
-////        /*
-////        private int generateUniqueAccountNumber(){
-////
-////        }
-////        */
-////    }
-//    }
-//}
+package com.example.final_project.service;
+
+import com.example.final_project.dto.AccountDTO;
+import com.example.final_project.entities.Account;
+import com.example.final_project.entities.User;
+import com.example.final_project.repository.AccountRepository;
+import com.example.final_project.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class AccountService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public AccountDTO getAccountByNumber(int accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getUser().getUserId());
+    }
+
+
+    public AccountDTO createAccount(AccountDTO accountDTO) {
+        User user = userRepository.findById(accountDTO.getAccountUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Account account = new Account();
+        account.setBalance(accountDTO.getBalance());
+        account.setAccountType(accountDTO.getAccountType());
+        account.setAccountNumber(accountDTO.getAccountNumber());
+        account.setUser(user);
+        accountRepository.save(account);
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), user.getUserId());
+    }
+
+    public double deleteAccount(Integer accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        double finalBalance = account.getBalance();
+        accountRepository.delete(account);
+        return finalBalance;
+    }
+}

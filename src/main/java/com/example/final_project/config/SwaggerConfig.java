@@ -1,4 +1,4 @@
-package com.example.final_project.security;
+package com.example.final_project.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,4 +17,3 @@ public class SwaggerConfig {
                         .description("API documentation for User Management"));
     }
 }
-
