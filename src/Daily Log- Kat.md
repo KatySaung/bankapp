@@ -16,15 +16,15 @@
 
 #### Working On:
 <p> Tiego: Fixing login system</p>
-<p> Kat: BET Testing</p>
+<p> Kat: BET Testing (controller and services)</p>
 <p> Kais: Will sort generating routing and account numbers </p>
-<p> Andres: 5 adding date/time component </p>
+<p> Andres: #2 finish log in, with sorting number</p>
 
 ### Monday 08/26
 #### Completed:
-<p> #1,3,4,6,7,8 </p>
+<p> #1,3,4,5,6,7,8 </p>
 
 #### To be Completed:
 <p> #2: The customer should be able to login to the system with their identification number, and see a list of their bank accounts. For each account the name of the account, account number, sort code (routing number) and current balance should be displayed and available.</p>
-<p> #5: add date/time </p>
 <p> Lastly, get Mallon UI working</p>
+<p>BET Testing (controller and services)</p>
