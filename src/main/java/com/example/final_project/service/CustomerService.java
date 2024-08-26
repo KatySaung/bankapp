@@ -1,6 +1,7 @@
 package com.example.final_project.service;
 
 import com.example.final_project.dto.AccountDTO;
+import com.example.final_project.dto.AccountagainDTO;
 import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
@@ -45,13 +46,13 @@ public class CustomerService {
     }
 
     private CustomerDTO convertToCustomerDTO(Customer customer) {
-        List<AccountDTO> accountDTOs = customer.getAccounts().stream()
-                .map(account -> new AccountDTO(
-                        account.getBalance(),
-                        account.getAccountType(),
-                        account.getAccountNumber(),
+        List<AccountagainDTO> accountDTOs = customer.getAccounts().stream()
+                .map(account -> new AccountagainDTO(
+                        //account.getBalance(),
+                        //account.getAccountType(),
+                        //account.getAccountNumber(),
                         //account.getRoutNum(),
-                        customer.getCustomerId()
+                        //customer.getCustomerId()
                 ))
                 .collect(Collectors.toList());
 

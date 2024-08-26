@@ -36,18 +36,18 @@ public class Account {
     @Column(nullable = false, unique = true)
     private int accountNumber;
 
-//    @Column(nullable = false, unique = true)
-//    private int routNum;
+    @Column(nullable = false, unique = true)
+    private int sortCode;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "account_user_id", nullable = false)
     private Customer customer;
 
-    public Account(double balance, String accountType, Integer accountNumber, Customer customer) {
+    public Account(double balance, String accountType, Integer accountNumber, int sortCode, Customer customer) {
         this.balance = balance;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
-        //this.routNum = routNum;
+        this.sortCode = sortCode;
         this.customer = customer;
     }
 

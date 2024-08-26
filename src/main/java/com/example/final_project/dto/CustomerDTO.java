@@ -7,15 +7,15 @@ import java.util.List;
 @Getter
 @Setter
 public class CustomerDTO {
-    private Long customerId;
-    private String username;
-    private List<AccountDTO> accounts;
+    private Long id;
+    private String fullName;
+    private List<AccountagainDTO> accounts;
 
     public CustomerDTO() {}
 
-    public CustomerDTO(Long customerId, String username, List<AccountDTO> accounts) {
-        this.customerId = customerId;
-        this.username = username;
+    public CustomerDTO(Long id, String fullName, List<AccountagainDTO> accounts) {
+        this.id = id;
+        this.fullName = fullName;
         this.accounts = accounts;
     }
 }
