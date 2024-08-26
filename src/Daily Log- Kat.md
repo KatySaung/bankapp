@@ -16,14 +16,13 @@
 
 #### Working On:
 <p> Tiego: Fixing login system</p>
-<p> Kat: BET Testing</p>
-<p> Kais: Will sort generating routing and account numbers and refactor code
-to work with new routing number field (i.e. Transactions and Accounts)</p>
-<p> Andres: Login system (OAuth)</p>
+<p> Kat: BET Testing (controller and services)</p>
+<p> Kais: Will sort generating routing and account numbers </p>
+<p> Andres: #2 finish log in, with sorting number</p>
 
 ### Monday 08/26
 #### Completed:
-<p> #1,3,4,6,7,8 </p>
+<p> #1,3,4,5,6,7,8 </p>
 
 #### To be Completed:
 <p> Adding and polishing functionality for generating unique account numbers and, 
@@ -34,3 +33,4 @@ For each account the name of the account, account number,</p>
 <p> Sort code (routing number) and current balance should be 
 displayed and available.</p>
 <p> Lastly, get Mallon UI working</p>
+<p>BET Testing (controller and services)</p>
