@@ -39,7 +39,7 @@ public class AccountService {
 
     }
 
-    private int generateUniqueId(){
+    public int generateUniqueId(){
         return nextId.getAndIncrement();
     }
 
