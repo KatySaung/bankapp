@@ -51,12 +51,12 @@ public class Account {
         this.customer = customer;
     }
 
-//    public Account(double balance, String accountType, User user) {
+//    public Account(double balance, String accountType, Customer customer) {
 //        this.balance = balance;
 //        this.accountType = accountType;
 //        this.accountNumber = generateUniqueAccId();
 //        this.routNum = generateUniqueRoutId();
-//        this.user = user;
+//        this.customer = customer;
 //    }
 
     public Account() {}

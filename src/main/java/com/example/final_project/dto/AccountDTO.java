@@ -10,14 +10,14 @@ public class AccountDTO {
     private String accountType;
     private Integer accountNumber;
     private Integer routNum;
-    private Long accountUserId;
+    private Long accountCustomerId;
 
-    public AccountDTO(double balance, String accountType, Integer accountNumber, Long accountUserId) {
+    public AccountDTO(double balance, String accountType, Integer accountNumber, Long accountCustomerId) {
         this.balance = balance;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
         //this.routNum = routNum;
-        this.accountUserId = accountUserId;
+        this.accountCustomerId = accountCustomerId;
     }
 
     public AccountDTO() {}
