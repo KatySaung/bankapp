@@ -20,13 +20,8 @@ public class CustomerController {
 
     @GetMapping("/login")
     public ResponseEntity<CustomerDTO> customerLogin(@RequestBody Long CustomerId) {
-//        if(customerService.getCustomerById(CustomerId) != null) {
-//            return customerService.getCustomerById(CustomerId);
-//        }
-//        return null;
-
-            CustomerDTO customerDTO = customerService.getCustomerById(CustomerId);
-            return new ResponseEntity<>(customerDTO , HttpStatus.OK);
+        CustomerDTO customer = customerService.getCustomerById(CustomerId);
+        return ResponseEntity.ok(customer);
     }
 
 
