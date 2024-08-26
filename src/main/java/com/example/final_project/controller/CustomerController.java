@@ -18,18 +18,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-//    @GetMapping("/login")
-//    public ResponseEntity<CustomerDTO> customerLogin(@RequestBody Long CustomerId) {
-//     if(customerService.getCustomerById(CustomerId) != null) {
-//          return customerService.getCustomerById(CustomerId);
-//     }
-//        return null;
-//
-//            CustomerDTO customerDTO = customerService.getCustomerById(CustomerId);
-//            return new ResponseEntity<>(customerDTO , HttpStatus.OK);
-//    }
-
-
     // Retrieve all Customers
     @GetMapping
     public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
