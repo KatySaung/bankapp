@@ -40,7 +40,7 @@ public class Account {
 //    private int routNum;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "account_user_id", nullable = false)
+    @JoinColumn(name = "account_customer_id", nullable = false)
     private Customer customer;
 
     public Account(double balance, String accountType, Integer accountNumber, Customer customer) {

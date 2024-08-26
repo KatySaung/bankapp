@@ -47,11 +47,9 @@ public class CustomerService {
     private CustomerDTO convertToCustomerDTO(Customer customer) {
         List<AccountDTO> accountDTOs = customer.getAccounts().stream()
                 .map(account -> new AccountDTO(
-                        account.getBalance(),
                         account.getAccountType(),
-                        account.getAccountNumber(),
-                        //account.getRoutNum(),
-                        customer.getCustomerId()
+                        customer.getCustomerId(),
+                        account.getBalance()
                 ))
                 .collect(Collectors.toList());
 

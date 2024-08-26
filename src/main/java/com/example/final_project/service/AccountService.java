@@ -25,7 +25,7 @@ public class AccountService {
         Account account = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId());
+        return new AccountDTO(account.getAccountType(),account.getCustomer().getCustomerId(), account.getBalance());
 
 
         //return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), account.getUser().getUserId());
@@ -44,7 +44,7 @@ public class AccountService {
 
         accountRepository.save(account);
 
-        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId());
+        return new AccountDTO(account.getAccountType(),account.getCustomer().getCustomerId(), account.getBalance());
 
 //        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), user.getUserId());
     }
@@ -59,7 +59,7 @@ public class AccountService {
 
         accountRepository.save(account);
 
-        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId());
+        return new AccountDTO(account.getAccountType(),account.getCustomer().getCustomerId(), account.getBalance());
 
 //        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), account.getUser().getUserId());
     }
@@ -77,7 +77,7 @@ public class AccountService {
     public List<AccountDTO> getAllAccounts() {
         List<Account> accounts = accountRepository.findAll();
         return accounts.stream()
-                .map(account -> new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId()))
+                .map(account -> new AccountDTO(account.getAccountType(),account.getCustomer().getCustomerId(), account.getBalance()))
                 .collect(Collectors.toList());
 
 //        .map(account -> new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), account.getUser().getUserId()))
