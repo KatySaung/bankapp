@@ -35,8 +35,6 @@ public class AccountService {
         return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getUser().getUserId());
     }
 
-
-
     //create a new account
     public AccountDTO createAccount(AccountDTO accountDTO) {
         User user = userRepository.findById(accountDTO.getAccountUserId())

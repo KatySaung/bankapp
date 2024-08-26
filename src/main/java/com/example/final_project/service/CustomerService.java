@@ -1,9 +1,8 @@
 package com.example.final_project.service;
 
 import com.example.final_project.dto.AccountDTO;
-import com.example.final_project.dto.UserDTO;
+import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Account;
-import com.example.final_project.entities.Transaction;
 import com.example.final_project.entities.User;
 import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.repository.TransactionRepository;
@@ -16,10 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class CustomerService {
 
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository userRepository;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -28,24 +27,24 @@ public class UserService {
     private TransactionRepository transactionRepository;
 
     @Transactional
-    public User registerDTO(String name) {
+    public Customer registerDTO(String name) {
         // Removed validation logic here
-        if (userRepository.findByUsername(name) != null) {
+        if (userRepository.findByCustomername(name) != null) {
             throw new IllegalArgumentException("Username already exists.");
         }
 
-        User user = new User(name);
-        return userRepository.save(user);
+        Customer customer = new Customer(name);
+        return userRepository.save(customer);
     }
 
     @Transactional(readOnly = true)
-    public UserDTO getUserById(Long userId) {
+    public CustomerDTO getCustomerById(Long customerId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return convertToUserDTO(user);
     }
 
-    private UserDTO convertToUserDTO(User user) {
+    private CustomerDTO convertToUserDTO(User user) {
         List<AccountDTO> accountDTOs = user.getAccounts().stream()
                 .map(account -> new AccountDTO(
                         account.getBalance(),
@@ -55,7 +54,7 @@ public class UserService {
                 ))
                 .collect(Collectors.toList());
 
-        return new UserDTO(user.getUserId(), user.getUsername(), accountDTOs);
+        return new CustomerDTO(user.getUserId(), user.getUsername(), accountDTOs);
     }
 
     @Transactional
@@ -80,7 +79,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserDTO> findAllUsers() {
+    public List<CustomerDTO> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(this::convertToUserDTO)
