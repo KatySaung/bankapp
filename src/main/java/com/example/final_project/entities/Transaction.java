@@ -17,13 +17,13 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; 
+    private Long id;
 
     @Column(name = "from_account_number", nullable = false)
-    private int fromAccountNumber;
+    private Integer fromAccountNumber;
 
     @Column(name = "to_account_number")
-    private int toAccountNumber;
+    private Integer toAccountNumber;
 
     @Column(nullable = false)
     private Double amount;
@@ -34,7 +34,7 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    public Transaction(Long id, int fromAccountNumber, int toAccountNumber, Double amount, String transactionType, LocalDateTime timestamp) {
+    public Transaction(Long id, Integer fromAccountNumber, Integer toAccountNumber, Double amount, String transactionType, LocalDateTime timestamp) {
         this.id = id;
         this.fromAccountNumber = fromAccountNumber;
         this.toAccountNumber = toAccountNumber;

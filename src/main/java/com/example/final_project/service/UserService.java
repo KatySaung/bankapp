@@ -3,9 +3,11 @@ package com.example.final_project.service;
 import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.dto.UserDTO;
 import com.example.final_project.entities.Account;
+import com.example.final_project.entities.Transaction;
 import com.example.final_project.entities.User;
+import com.example.final_project.repository.AccountRepository;
+import com.example.final_project.repository.TransactionRepository;
 import com.example.final_project.repository.UserRepository;
-import com.example.final_project.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +21,20 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
     @Transactional
-    public User registerDTO(String name, String password) {
+    public User registerDTO(String name) {
+        // Removed validation logic here
         if (userRepository.findByUsername(name) != null) {
             throw new IllegalArgumentException("Username already exists.");
         }
 
-        User user = new User(name, password);
-        validateUser(user);
-
+        User user = new User(name);
         return userRepository.save(user);
     }
 
@@ -51,52 +58,32 @@ public class UserService {
         return new UserDTO(user.getUserId(), user.getUsername(), accountDTOs);
     }
 
-    public User login(String username, String password) {
-        if (!ValidationUtils.isValidUsername(username)) {
-            throw new IllegalArgumentException("Invalid username.");
-        }
-        if (!ValidationUtils.isValidPassword(password)) {
-            throw new IllegalArgumentException("Invalid password.");
-        }
-
-        User user = userRepository.findByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        }
-
-        throw new IllegalArgumentException("Invalid username or password.");
-    }
-
     @Transactional
     public double deleteUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User ID not found."));
 
-        double totalFunds = user.getAccounts().stream()
+        List<Account> accounts = user.getAccounts();
+
+        for (Account account : accounts) {
+            transactionRepository.deleteByFromAccountNumber(account.getAccountNumber());
+            transactionRepository.deleteByToAccountNumber(account.getAccountNumber());
+        }
+
+        double totalFunds = accounts.stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
-
+        accountRepository.deleteAll(accounts);
         userRepository.delete(user);
-        return totalFunds;
-    }
 
-    private void validateUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null.");
-        }
-        if (!ValidationUtils.isValidUsername(user.getUsername())) {
-            throw new IllegalArgumentException("Invalid username.");
-        }
-        if (!ValidationUtils.isValidPassword(user.getPassword())) {
-            throw new IllegalArgumentException("Invalid password.");
-        }
+        return totalFunds;
     }
 
     @Transactional(readOnly = true)
     public List<UserDTO> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map(user -> convertToUserDTO(user))
+                .map(this::convertToUserDTO)
                 .collect(Collectors.toList());
     }
 }

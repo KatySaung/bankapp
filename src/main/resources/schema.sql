@@ -7,11 +7,10 @@ DROP TABLE IF EXISTS banking.transactions;
 DROP TABLE IF EXISTS banking.accounts;
 DROP TABLE IF EXISTS banking.account_user;
 
--- Create the account_user table
+-- Create the account_user table without the password field
 CREATE TABLE banking.account_user (
     user_id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL
+    username VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Create the accounts table
@@ -25,6 +24,7 @@ CREATE TABLE banking.accounts (
     REFERENCES banking.account_user(user_id)
 );
 
+-- Create the transactions table
 CREATE TABLE banking.transactions (
     id SERIAL PRIMARY KEY,
     from_account_number INTEGER NOT NULL,

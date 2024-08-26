@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/bank")
 public class BankController {
-
     @GetMapping("/sortCode")
     public ResponseEntity<String> getSortCode() {
         return ResponseEntity.ok("1234");
     }
 }
-
