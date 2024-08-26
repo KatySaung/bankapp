@@ -1,8 +1,10 @@
 package com.example.final_project.service;
 
+import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.User;
 import com.example.final_project.repository.AccountRepository;
+import com.example.final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private AtomicInteger nextId = new AtomicInteger(1);
 
@@ -44,30 +49,34 @@ public class AccountService {
     }
 
 
-//    private int generateAccountNumber() { //generate account number
-//
-//        //String uuid = UUID.randomUUID().toString();
-//        //String accountNumber = uuid.replaceAll("[^0-9]", " ");
-//        //Random random = new Random();
-//
-//
-//
-//        while (!accountRepository.existsByAccountNumber(accountNumber)){
-//            //accountNumber = random.nextInt(999999999)
-//
-//        }
-//        return accountNumber;
-//        if(accountRepository.existsByAccountNumber((accountNumber))){
-//
-//        }
-//    }
 
-    //method to generate a unique account number? Make sure number generated in account number is unique.
 
-//    private int generateUniqueAccountNumber(){
-//
-//    }
+    public AccountDTO getAccountByNumber(int accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber).orElseThrow(() -> new RuntimeException("Account not found"));
 
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getUser().getUserId());
+    }
+
+
+    public AccountDTO createAccount(AccountDTO accountDTO) {
+        User user = userRepository.findById(accountDTO.getAccountUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Account account = new Account();
+        account.setBalance(accountDTO.getBalance());
+        account.setAccountType(accountDTO.getAccountType());
+        account.setAccountNumber(accountDTO.getAccountNumber());
+        account.setUser(user);
+        accountRepository.save(account);
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), user.getUserId());
+    }
+
+    public double deleteAccount(Integer accountNumber) {
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        double finalBalance = account.getBalance();
+        accountRepository.delete(account);
+        return finalBalance;
+    }
 
 }
 

@@ -3,21 +3,20 @@ package com.example.final_project.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class AccountDTO {
     private double balance;
     private String accountType;
-    private int accountNumber;
+    private Integer accountNumber;
+    private Long accountUserId;
 
-    //constructor
-    public AccountDTO(double balance, String accountType, int accountNumber) {
+    public AccountDTO(double balance, String accountType, Integer accountNumber, Long accountUserId) {
         this.balance = balance;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
+        this.accountUserId = accountUserId;
     }
 
-    //default constructor
-    public AccountDTO(){}
-
+    public AccountDTO() {}
 }

@@ -5,11 +5,10 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Random;
-
+@Getter
+@Setter
 @Entity
-@Table(name = "accounts")
+@Table(name = "accounts", schema = "banking")
 @Data
 public class Account {
 
@@ -17,38 +16,27 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //setter/ getter
-    @Setter
-    @Getter
+    @Column(nullable = false)
     private double balance;
-    @Setter
-    @Getter
+
+    @Column(nullable = false)
     private String accountType;
-    @Setter
-    @Getter
+
+    @Column(nullable = false, unique = true)
     private int accountNumber;
 
-
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "account_user_id", nullable = false)
     private User user;
 
-    //constructor
-    public Account() {}
-    public Account(
-            Long id,
-            double balance,
-            String accountType,
-            int accountNumber,
-            User user) {
-        this.id = id;
+    public Account(double balance, String accountType, Integer accountNumber, User user) {
         this.balance = balance;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
         this.user = user;
     }
 
-
+    public Account() {}
 }
+
 
