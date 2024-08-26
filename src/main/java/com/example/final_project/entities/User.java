@@ -8,50 +8,40 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
-@Table(name = "users")
+@Table(name = "account_user", schema = "banking")
 @Data
 public class User {
 
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Column(nullable = false, unique = true)
     private String username;
-    private String password;
 
-    @Setter
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
 
     // Constructor
-    public User(String username, String password) {
+    public User(String username) {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
         this.username = username;
-        this.password = password;
     }
 
     // Default constructor
     public User() {}
 
-    public void setUsername(String username) {
-        if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be null or empty");
-        }
-        this.username = username;
+    public void addAccount(Account account) {
+        accounts.add(account);
+        account.setUser(this);
     }
 
-    public void setPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-        this.password = password;
+    public void removeAccount(Account account) {
+        accounts.remove(account);
+        account.setUser(null);
     }
-
 }

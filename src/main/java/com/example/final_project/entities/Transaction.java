@@ -2,28 +2,28 @@ package com.example.final_project.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = false)
 @Setter
 @Getter
 @Entity
-@Table(name = "transactions")
+@Table(name = "transactions", schema = "banking")
 @Data
 public class Transaction {
 
-    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long fromAccountNumber;
+    @Column(name = "from_account_number", nullable = false)
+    private Integer fromAccountNumber;
 
-    @Column(nullable = true)
-    private Long toAccountNumber;
+    @Column(name = "to_account_number")
+    private Integer toAccountNumber;
 
     @Column(nullable = false)
     private Double amount;
@@ -34,15 +34,14 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    // Constructors
-    public Transaction() {}
-
-    public Transaction(Long fromAccountNumber, Long toAccountNumber, Double amount, String transactionType) {
+    public Transaction(Long id, Integer fromAccountNumber, Integer toAccountNumber, Double amount, String transactionType, LocalDateTime timestamp) {
+        this.id = id;
         this.fromAccountNumber = fromAccountNumber;
         this.toAccountNumber = toAccountNumber;
         this.amount = amount;
         this.transactionType = transactionType;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = timestamp;
     }
 
+    public Transaction() {}
 }

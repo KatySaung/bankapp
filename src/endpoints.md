@@ -1,3 +1,5 @@
+SWAGGER
+localhost:<port>/swagger-ui.html
 users Service Endpoints
 Endpoint: POST /users/register
 Request Body:

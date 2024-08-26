@@ -1,61 +1,58 @@
 package com.example.final_project.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import com.example.final_project.dto.TransactionDTO;
+import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Transaction;
+import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
+
     @Autowired
     private TransactionRepository transactionRepository;
 
-    public List<Transaction> createTransaction(Transaction transaction) {
-        return transactionRepository.saveAll(List.of(transaction));
-    }
+    @Autowired
+    private AccountRepository accountRepository;
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
-    }
+    public TransactionDTO createTransaction(TransactionDTO transactionDTO) {
+        // Validate 'from' account
+        Optional<Account> fromAccount = accountRepository.findByAccountNumber(transactionDTO.getFromAccountNumber());
+        if (!fromAccount.isPresent()) {
+            throw new RuntimeException("From account not found");
+        }
 
-    public Transaction getTransactionById(Long id) {
-        return transactionRepository.findById(id).orElse(null);
-    }
+        // Validate 'to' account if it's not null
+        Optional<Account> toAccount = Optional.empty();
+        if (transactionDTO.getToAccountNumber() != null) {
+            toAccount = accountRepository.findByAccountNumber(transactionDTO.getToAccountNumber());
+            if (!toAccount.isPresent()) {
+                throw new RuntimeException("To account not found");
+            }
+        }
 
-    public Transaction addTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
-    }
+        // Create and save the transaction
+        Transaction transaction = new Transaction();
+        transaction.setFromAccountNumber(transactionDTO.getFromAccountNumber());
+        transaction.setToAccountNumber(transactionDTO.getToAccountNumber());
+        transaction.setAmount(transactionDTO.getAmount());
+        transaction.setTransactionType(transactionDTO.getTransactionType());
+        transaction.setTimestamp(transactionDTO.getTimestamp() != null ? transactionDTO.getTimestamp() : LocalDateTime.now());
 
-    public Transaction updateTransaction(Transaction updatedTransaction) {
-        return transactionRepository.save(updatedTransaction);
-    }
+        transactionRepository.save(transaction);
 
-    public void deleteTransaction(Long accountNumber) {
-        transactionRepository.deleteByAccountNumber(accountNumber);
-    }
-
-    public List<Transaction> getTransactionsByAccountNumber(Long accountNumber) {
-        return transactionRepository.findByFromAccountNumber(accountNumber);
-    }
-
-    public List<Transaction> getTransactionsByDate(LocalDateTime startDate, LocalDateTime endDate) {
-        return transactionRepository.findByTimestampBetween(startDate, endDate);
-    }
-
-    public List<Transaction> getTransactionsByUserId(Long userId) {
-        return transactionRepository.findByUserId(userId);
-
-    }
-
-    public List<Transaction> getTransactionsByType(String transactionType) {
-        return transactionRepository.findByTransactionType(transactionType);
-    }
-
-    public List<Transaction> findByAccountNumber(Long accountNumber) {
-        return transactionRepository.findByAccountNumber(accountNumber);
+        return new TransactionDTO(
+                transaction.getId(),
+                transaction.getFromAccountNumber(),
+                transaction.getToAccountNumber(),
+                transaction.getAmount(),
+                transaction.getTransactionType(),
+                transaction.getTimestamp()
+        );
     }
 }
