@@ -2,12 +2,11 @@ package com.example.final_project.service;
 
 import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.entities.Account;
-import com.example.final_project.entities.User;
+import com.example.final_project.entities.Customer;
+import com.example.final_project.repository.CustomerRepository;
 import com.example.final_project.repository.AccountRepository;
-import com.example.final_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,38 +15,38 @@ import java.util.stream.Collectors;
 @Service
 public class AccountService {
 
-    private AtomicInteger nextId = new AtomicInteger(1);
-
-    public int generateUniqueId(){
-        return nextId.getAndIncrement();
-    }
-
     @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository userRepository;
 
     public AccountDTO getAccountByNumber(int accountNumber) {
         Account account = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getUser().getUserId());
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId());
+
+
+        //return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), account.getUser().getUserId());
     }
 
     //create a new account
     public AccountDTO createAccount(AccountDTO accountDTO) {
-        User user = userRepository.findById(accountDTO.getAccountUserId())
+        Customer customer = userRepository.findById(accountDTO.getAccountUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Account account = new Account();
         account.setBalance(accountDTO.getBalance());
         account.setAccountType(accountDTO.getAccountType());
         account.setAccountNumber(accountDTO.getAccountNumber());
-        account.setUser(user);
+        account.setCustomer(customer);
 
         accountRepository.save(account);
-        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), user.getUserId());
+
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId());
+
+//        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), user.getUserId());
     }
 
     //update an existing account
@@ -60,7 +59,9 @@ public class AccountService {
 
         accountRepository.save(account);
 
-        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getUser().getUserId());
+        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId());
+
+//        return new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), account.getUser().getUserId());
     }
 
     //delete an account
@@ -76,7 +77,10 @@ public class AccountService {
     public List<AccountDTO> getAllAccounts() {
         List<Account> accounts = accountRepository.findAll();
         return accounts.stream()
-                .map(account -> new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getUser().getUserId()))
+                .map(account -> new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getCustomer().getCustomerId()))
                 .collect(Collectors.toList());
+
+//        .map(account -> new AccountDTO(account.getBalance(), account.getAccountType(), account.getAccountNumber(), account.getRoutNum(), account.getUser().getUserId()))
+//                .collect(Collectors.toList());
     }
 }

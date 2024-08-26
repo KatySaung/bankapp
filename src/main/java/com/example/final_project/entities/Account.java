@@ -5,10 +5,23 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Entity
 @Table(name = "accounts", schema = "banking")
 @Data
 public class Account {
+//    private AtomicInteger accId = new AtomicInteger(1);
+//
+//    private AtomicInteger routId = new AtomicInteger(1);
+//
+//    public int generateUniqueAccId(){
+//        return accId.getAndIncrement();
+//    }
+//
+//    public int generateUniqueRoutId(){
+//        return routId.getAndIncrement();
+//    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,17 +36,28 @@ public class Account {
     @Column(nullable = false, unique = true)
     private int accountNumber;
 
+//    @Column(nullable = false, unique = true)
+//    private int routNum;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "account_user_id", nullable = false)
-    private User user;
+    private Customer customer;
 
-    public Account(double balance, String accountType, Integer accountNumber, User user) {
+    public Account(double balance, String accountType, Integer accountNumber, Customer customer) {
         this.balance = balance;
         this.accountType = accountType;
         this.accountNumber = accountNumber;
-        this.user = user;
+        //this.routNum = routNum;
+        this.customer = customer;
     }
+
+//    public Account(double balance, String accountType, User user) {
+//        this.balance = balance;
+//        this.accountType = accountType;
+//        this.accountNumber = generateUniqueAccId();
+//        this.routNum = generateUniqueRoutId();
+//        this.user = user;
+//    }
 
     public Account() {}
 }
-
