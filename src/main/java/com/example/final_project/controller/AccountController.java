@@ -1,6 +1,7 @@
 package com.example.final_project.controller;
 
 import com.example.final_project.dto.AccountDTO;
+import com.example.final_project.dto.CreateAccountRequestDTO;
 import com.example.final_project.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,21 @@ public class AccountController {
     public ResponseEntity<Double> deleteAccount(@PathVariable Integer accountNumber) {
         double finalBalance = accountService.deleteAccount(accountNumber);
         return ResponseEntity.ok(finalBalance);
+    }
+
+    @PostMapping
+    public CreateAccountRequestDTO createAccount(CreateAccountRequestDTO request) {
+        if(request.getCustomerId() != null) {
+            return new CreateAccountRequestDTO(
+                    12345677,
+                    4444,
+                    request.getAccountName(),
+                    request.getOpeningBalance(),
+                    new Integer[0],
+                    request.getOpeningBalance(),
+                    request.getCustomerId()
+                    );
+        }
+        return request;
     }
 }

@@ -10,22 +10,22 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "account_user", schema = "banking")
+@Table(name = "account_customer", schema = "banking")
 @Data
-public class User {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long customerId;
 
     @Column(nullable = false, unique = true)
     private String username;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
 
     // Constructor
-    public User(String username) {
+    public Customer(String username) {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
@@ -33,17 +33,17 @@ public class User {
     }
 
     // Default constructor
-    public User() {}
+    public Customer() {}
 
 
 
     public void addAccount(Account account) {
         accounts.add(account);
-        account.setUser(this);
+        account.setCustomer(this);
     }
 
     public void removeAccount(Account account) {
         accounts.remove(account);
-        account.setUser(null);
+        account.setCustomer(null);
     }
 }

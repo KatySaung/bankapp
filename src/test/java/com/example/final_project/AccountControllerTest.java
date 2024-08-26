@@ -1,4 +1,4 @@
 package com.example.final_project;
 
-public class AccountServiceTest {
+public class AccountControllerTest {
 }
