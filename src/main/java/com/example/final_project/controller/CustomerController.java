@@ -18,11 +18,16 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/login")
-    public ResponseEntity<CustomerDTO> customerLogin(@RequestBody Long CustomerId) {
-        CustomerDTO customer = customerService.getCustomerById(CustomerId);
-        return ResponseEntity.ok(customer);
-    }
+//    @GetMapping("/login")
+//    public ResponseEntity<CustomerDTO> customerLogin(@RequestBody Long CustomerId) {
+//     if(customerService.getCustomerById(CustomerId) != null) {
+//          return customerService.getCustomerById(CustomerId);
+//     }
+//        return null;
+//
+//            CustomerDTO customerDTO = customerService.getCustomerById(CustomerId);
+//            return new ResponseEntity<>(customerDTO , HttpStatus.OK);
+//    }
 
 
     // Retrieve all Customers
@@ -33,7 +38,7 @@ public class CustomerController {
     }
 
     // Retrieve a Customer by Customer ID
-    @GetMapping("customer/{CustomerId}")
+    @GetMapping("/{CustomerId}")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Long CustomerId) {
         CustomerDTO Customer = customerService.getCustomerById(CustomerId);
         return ResponseEntity.ok(Customer);
@@ -46,7 +51,7 @@ public class CustomerController {
     }
 
     // Delete a Customer by Customer ID
-    @DeleteMapping("customer/{CustomerId}")
+    @DeleteMapping("/{CustomerId}")
     public ResponseEntity<Double> deleteCustomer(@PathVariable Long CustomerId) {
         double totalFunds = customerService.deleteCustomer(CustomerId);
         return ResponseEntity.ok(totalFunds);

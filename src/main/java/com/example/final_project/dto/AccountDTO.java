@@ -12,12 +12,12 @@ public class AccountDTO {
     private Integer routNum;
     private Long accountCustomerId;
 
-    public AccountDTO(double balance, String accountType, Integer accountNumber, Long accountCustomerId) {
-        this.balance = balance;
+    public AccountDTO(String accountType, Long accountCustomerId, double balance) {
         this.accountType = accountType;
-        this.accountNumber = accountNumber;
-        //this.routNum = routNum;
         this.accountCustomerId = accountCustomerId;
+        this.balance = balance;
+        //this.accountNumber//generate random number;
+        //this.routNum//generate random number;
     }
 
     public AccountDTO() {}
