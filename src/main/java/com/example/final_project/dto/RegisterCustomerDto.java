@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterUserDto {
+public class RegisterCustomerDto {
     private String name;
 
-    public RegisterUserDto(String name) {
+    public RegisterCustomerDto(String name) {
         this.name = name;
     }
 
-    public RegisterUserDto() {}
+    public RegisterCustomerDto() {}
 }
