@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin
 public class AccountController {
 
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/{accountNumber}")
+    @GetMapping("account/{accountNumber}")
     public ResponseEntity<AccountDTO> getAccount(@PathVariable Integer accountNumber) {
         AccountDTO account = accountService.getAccountByNumber(accountNumber);
         return ResponseEntity.ok(account);
@@ -25,7 +26,7 @@ public class AccountController {
         return ResponseEntity.status(201).body(newAccount);
     }
 
-    @DeleteMapping("/{accountNumber}")
+    @DeleteMapping("account/{accountNumber}")
     public ResponseEntity<Double> deleteAccount(@PathVariable Integer accountNumber) {
         double finalBalance = accountService.deleteAccount(accountNumber);
         return ResponseEntity.ok(finalBalance);

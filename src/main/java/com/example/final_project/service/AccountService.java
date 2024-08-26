@@ -19,7 +19,7 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private CustomerRepository userRepository;
+    private CustomerRepository customerRepository;
 
     public AccountDTO getAccountByNumber(int accountNumber) {
         Account account = accountRepository.findByAccountNumber(accountNumber)
@@ -33,7 +33,7 @@ public class AccountService {
 
     //create a new account
     public AccountDTO createAccount(AccountDTO accountDTO) {
-        Customer customer = userRepository.findById(accountDTO.getAccountUserId())
+        Customer customer = customerRepository.findById(accountDTO.getAccountCustomerId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Account account = new Account();
