@@ -32,4 +32,20 @@ public class AccountController {
         double finalBalance = accountService.deleteAccount(accountNumber);
         return ResponseEntity.ok(finalBalance);
     }
+
+    @PostMapping
+    public CreateAccountRequestDTO createAccount(CreateAccountRequestDTO request) {
+        if(request.getCustomerId() != null) {
+            return new CreateAccountRequestDTO(
+                    12345677,
+                    4444,
+                    request.getAccountName(),
+                    request.getOpeningBalance(),
+                    new Integer[0],
+                    request.getOpeningBalance(),
+                    request.getCustomerId()
+                    );
+        }
+        return request;
+    }
 }

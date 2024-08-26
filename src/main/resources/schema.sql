@@ -5,26 +5,28 @@ SET search_path = banking, public;
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS banking.transactions;
 DROP TABLE IF EXISTS banking.accounts;
-DROP TABLE IF EXISTS banking.account_user;
+DROP TABLE IF EXISTS banking.account_customer;
 
 -- Create the account_user table without the password field
-CREATE TABLE banking.account_user (
-    user_id SERIAL PRIMARY KEY,
+CREATE TABLE banking.account_customer (
+    customer_id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Create the accounts table
 CREATE TABLE banking.accounts (
     id SERIAL PRIMARY KEY,
-    account_user_id BIGINT NOT NULL,
+    account_customer_id BIGINT NOT NULL,
     account_number INTEGER NOT NULL UNIQUE,
+    routing_number INTEGER NOT NULL UNIQUE, --added new field
     account_type VARCHAR(50) NOT NULL,
     balance NUMERIC(15, 2) NOT NULL,
-    CONSTRAINT fk_user FOREIGN KEY (account_user_id)
-    REFERENCES banking.account_user(user_id)
+    CONSTRAINT fk_customer FOREIGN KEY (account_customer_id)
+    REFERENCES banking.account_customer(customer_id)
 );
 
 -- Create the transactions table
+-- May need to change references and values from account_numbers to routing_numbers
 CREATE TABLE banking.transactions (
     id SERIAL PRIMARY KEY,
     from_account_number INTEGER NOT NULL,
