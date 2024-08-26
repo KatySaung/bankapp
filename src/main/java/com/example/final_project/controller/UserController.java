@@ -2,13 +2,19 @@ package com.example.final_project.controller;
 
 import com.example.final_project.dto.RegisterUserDto;
 import com.example.final_project.dto.UserDTO;
+import com.example.final_project.entities.Account;
 import com.example.final_project.entities.User;
 import com.example.final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -43,4 +49,24 @@ public class UserController {
         double totalFunds = userService.deleteUser(userId);
         return ResponseEntity.ok(totalFunds);
     }
+
+    //display userinfo
+    @GetMapping("/{accounts}")
+    public Map<String, Object> getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Access user details
+            String username = authentication.getName();
+            ;
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("username", username);
+            userinfo.put("accounts" , a );
+            return userInfo;
+        } else {
+            // Handle case where user is not authenticated
+            return new HashMap<>();
+        }
+    }
 }
+
+

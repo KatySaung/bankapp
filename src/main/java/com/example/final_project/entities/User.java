@@ -35,6 +35,8 @@ public class User {
     // Default constructor
     public User() {}
 
+
+
     public void addAccount(Account account) {
         accounts.add(account);
         account.setUser(this);
