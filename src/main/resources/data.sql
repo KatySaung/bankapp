@@ -1,13 +1,11 @@
--- Insert data into account_user table
-INSERT INTO banking.account_user (username, password) VALUES
-('kats', 'katspassword')
+INSERT INTO banking.account_user (username) VALUES
+('kats')
 ON CONFLICT (username) DO NOTHING;
 
-INSERT INTO banking.account_user (username, password) VALUES
-('tchico1er', 'tchico1erpassword')
+INSERT INTO banking.account_user (username) VALUES
+('tchico1er')
 ON CONFLICT (username) DO NOTHING;
 
--- Insert data into accounts table
 INSERT INTO banking.accounts (account_user_id, account_number, account_type, balance) VALUES
 (1, 1234567890, 'Savings', 1000.00)
 ON CONFLICT (account_number) DO NOTHING;
@@ -24,7 +22,6 @@ INSERT INTO banking.accounts (account_user_id, account_number, account_type, bal
 (2, 1233450956, 'Savings', 45367500.00)
 ON CONFLICT (account_number) DO NOTHING;
 
--- Insert data into transactions table
 INSERT INTO banking.transactions (from_account_number, to_account_number, amount, transaction_type, timestamp) VALUES
 (1233455678, 1233450956, 100.00, 'TRANSFER', NOW())
 ON CONFLICT DO NOTHING;

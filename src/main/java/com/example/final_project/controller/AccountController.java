@@ -22,8 +22,9 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
         AccountDTO newAccount = accountService.createAccount(accountDTO);
-        return ResponseEntity.ok(newAccount);
+        return ResponseEntity.status(201).body(newAccount);
     }
+
     @DeleteMapping("/{accountNumber}")
     public ResponseEntity<Double> deleteAccount(@PathVariable Integer accountNumber) {
         double finalBalance = accountService.deleteAccount(accountNumber);

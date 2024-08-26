@@ -1,4 +1,3 @@
-
 package com.example.final_project.controller;
 
 import com.example.final_project.dto.RegisterUserDto;
@@ -18,26 +17,30 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/all")
+    // Retrieve all users
+    @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.findAllUsers();
         return ResponseEntity.ok(users);
     }
 
+    // Retrieve a user by user ID
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long userId) {
         UserDTO user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/register")
-    public User register(@RequestBody RegisterUserDto user) {
-        return userService.registerDTO(user.getName(), user.getPassword());
+    @PostMapping
+    public ResponseEntity<User> register(@RequestBody RegisterUserDto user) {
+        User newUser = userService.registerDTO(user.getName());
+        return ResponseEntity.status(201).body(newUser);
     }
 
-    @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.login(user.getUsername(), user.getPassword());
+    // Delete a user by user ID
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Double> deleteUser(@PathVariable Long userId) {
+        double totalFunds = userService.deleteUser(userId);
+        return ResponseEntity.ok(totalFunds);
     }
 }
-

@@ -17,44 +17,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
     @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false)
-    private String password;
-
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts;
 
     // Constructor
-    public User(String username, String password) {
+    public User(String username) {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
         this.username = username;
-        this.password = password;
     }
 
     // Default constructor
     public User() {}
-
-    public void setUsername(String username) {
-        if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be null or empty");
-        }
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-        this.password = password;
-    }
 
     public void addAccount(Account account) {
         accounts.add(account);
@@ -66,4 +45,3 @@ public class User {
         account.setUser(null);
     }
 }
-
