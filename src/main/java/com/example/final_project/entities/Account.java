@@ -1,12 +1,9 @@
 package com.example.final_project.entities;
 
 import jakarta.persistence.*;
-<<<<<<< HEAD
-        import lombok.Data;
-import lombok.Getter;
-=======
 import lombok.Data;
->>>>>>> 25e1a40b056f3b0d3cfe568227e057384c422071
+import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
