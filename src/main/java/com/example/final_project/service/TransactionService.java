@@ -32,12 +32,10 @@ public class TransactionService {
             default -> throw new IllegalArgumentException("Invalid transaction type: " + request.getType());
         };
 
-        // Validate 'to' account number if it's not null
         if (request.getToAccount() != null && request.getToAccount() <= 0) {
             throw new IllegalArgumentException("Invalid 'To' account number: " + request.getToAccount());
         }
 
-        // Check and validate 'from' account
         Optional<Account> fromAccountOpt = Optional.empty();
         if (request.getFromAccount() != null) {
             fromAccountOpt = accountRepository.findByAccountNumber(request.getFromAccount());
@@ -46,7 +44,6 @@ public class TransactionService {
             }
         }
 
-        // Check and validate 'to' account if it's not null
         Optional<Account> toAccountOpt = Optional.empty();
         if (request.getToAccount() != null) {
             toAccountOpt = accountRepository.findByAccountNumber(request.getToAccount());
@@ -55,7 +52,6 @@ public class TransactionService {
             }
         }
 
-        // Process the transaction based on type
         switch (transactionType) {
             case "DEPOSIT" -> {
                 if (toAccountOpt.isPresent()) {
@@ -96,7 +92,6 @@ public class TransactionService {
             default -> throw new IllegalArgumentException("Invalid transaction type: " + transactionType);
         }
 
-        // Create and save the transaction
         Transaction transaction = new Transaction();
         transaction.setFromAccountNumber(request.getFromAccount());
         transaction.setToAccountNumber(request.getToAccount());
