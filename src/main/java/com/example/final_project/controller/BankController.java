@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/bank")
+@RequestMapping("/sortCode")
 @CrossOrigin
-
-
 public class BankController {
 
-    @GetMapping("/sortCode")
+    @GetMapping
     public ResponseEntity<String> getSortCode() {
         return ResponseEntity.ok("1234");
     }

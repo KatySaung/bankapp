@@ -26,8 +26,8 @@ public class Account {
     @Column(name = "account_number", nullable = false, unique = true)
     private Integer accountNumber;
 
-    @Column(name = "routing_number", nullable = false)
-    private Integer routingNumber;
+    @Column(name = "sort_code", nullable = false)
+    private Integer sortCode;
 
     @Column(name = "account_name", nullable = false)
     private String accountName;
@@ -42,9 +42,9 @@ public class Account {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    public Account(Integer accountNumber, Integer routingNumber, String accountName, String accountType, Double balance, Customer customer) {
+    public Account(Integer accountNumber, Integer sortCode, String accountName, String accountType, Double balance, Customer customer) {
         this.accountNumber = accountNumber;
-        this.routingNumber = routingNumber;
+        this.sortCode = sortCode;
         this.accountName = accountName;
         this.accountType = accountType;
         this.balance = balance;

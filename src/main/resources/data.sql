@@ -3,17 +3,17 @@ INSERT INTO customers (full_name, username) VALUES ('Mike Clarke', 'mikeclarke')
 INSERT INTO customers (full_name, username) VALUES ('Tiego Ouedraogo', 'tiego') ON CONFLICT (full_name) DO NOTHING;
 
 -- Insert into accounts
-INSERT INTO accounts (customer_id, account_number, routing_number, account_name, account_type, balance)
+INSERT INTO accounts (customer_id, account_number, sort_code, account_name, account_type, balance)
 VALUES
 (1, 123456789, 1234, 'Current Account', 'Checking', 123.99)
 ON CONFLICT (account_number) DO NOTHING;
 
-INSERT INTO accounts (customer_id, account_number, routing_number, account_name, account_type, balance)
+INSERT INTO accounts (customer_id, account_number, sort_code, account_name, account_type, balance)
 VALUES
 (1, 987654321, 1234, 'Savings Account', 'Savings', 500.00)
 ON CONFLICT (account_number) DO NOTHING;
 
-INSERT INTO accounts (customer_id, account_number, routing_number, account_name, account_type, balance)
+INSERT INTO accounts (customer_id, account_number, sort_code, account_name, account_type, balance)
 VALUES
 (2, 456789123, 1234, 'Checking Account', 'Checking', 1000.00)
 ON CONFLICT (account_number) DO NOTHING;

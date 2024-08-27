@@ -30,7 +30,7 @@ public class AccountService {
 
         return new AccountDTO(
                 account.getAccountNumber(),
-                account.getRoutingNumber(),
+                account.getSortCode(),
                 account.getAccountName(),
                 account.getBalance(),
                 new ArrayList<TransactionDTO>(),
@@ -47,13 +47,13 @@ public class AccountService {
         account.setBalance(requestDto.getOpeningBalance());
         account.setCustomer(customer);
         account.setAccountNumber(generateUniqueAccountNumber());
-        account.setRoutingNumber(1234); // Default sort code for the bank
+        account.setSortCode(1234); // Default sort code for the bank
 
         accountRepository.save(account);
 
         return new CreateAccountResponseDto(
                 account.getAccountNumber(),
-                account.getRoutingNumber(),
+                account.getSortCode(),
                 account.getAccountName(),
                 account.getBalance(),
                 customer.getCustomerId());
@@ -78,7 +78,7 @@ public class AccountService {
                 .map(account -> new AccountDTO(
 
                         account.getAccountNumber(),
-                        account.getRoutingNumber(),
+                        account.getSortCode(),
                         account.getAccountName(),
                         account.getBalance(),
                         new ArrayList<TransactionDTO>(),
