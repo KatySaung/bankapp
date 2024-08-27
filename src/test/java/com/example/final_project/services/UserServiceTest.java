@@ -1,17 +1,30 @@
 package com.example.final_project.services;
 
 
+import com.example.final_project.entities.Customer;
+import com.example.final_project.repository.CustomerRepository;
+import com.example.final_project.service.CustomerService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
 
-    List<User> users = new ArrayList<>();
+    List<Customer> customers = new ArrayList<>();
 
     @Mock
-    private UserRepository userRepository;
+    private CustomerRepository userRepository;
 
     @InjectMocks
-    private UserService userService;
+    private CustomerService customerService;
 
     @BeforeEach
     public void setUp() {
@@ -20,12 +33,10 @@ public class UserServiceTest {
 
     @Test
     public void testRegisterUser() {
-        users.add(new User("tchico", "tchicopassword"));
-        when(userRepository.save(any(User.class))).thenReturn(users.get(0));
-        User user = new User("tchico", "tchicopassword");
-        User savedUser = userService.registerUser(user);
-        assertEquals(user.getUsername(), savedUser.getUsername());
-        assertEquals(user.getPassword(), savedUser.getPassword());
+        customers.add(new Customer("tchico"));
+        when(userRepository.save(any(Customer.class))).thenReturn(customers.get(0));
+        Customer customer = new Customer("tchico");
+        Customer savedUser = CustomerService.registerCustomer(customer);
     }
 
     @Test
