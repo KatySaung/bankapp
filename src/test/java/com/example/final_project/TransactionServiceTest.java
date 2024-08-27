@@ -28,11 +28,11 @@ public class TransactionServiceTest {
 
     @Test
     public void testCreateTransaction(){
-        TransactionDTO transactionDTO = new TransactionDTO(null,0987654321,1234567890,100.00,"Deposit", LocalDateTime.now());
+        TransactionDTO transactionDTO = new TransactionDTO(null,987654321,1234567890,100.00,"Deposit", LocalDateTime.now());
         Transaction transaction = new Transaction();
         transaction.setTransactionId(1L);
-        transaction.setFromAccountNumber(01234567);
-        transaction.setToAccountNumber(87654321);
+        transaction.setFromAccountNumber(987654321);
+        transaction.setToAccountNumber(1234567890);
         transaction.setAmount(500.00);
         transaction.setTransactionType("DEPOSIT");
         transaction.setTimestamp(transactionDTO.getTimestamp());

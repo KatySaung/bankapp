@@ -61,8 +61,12 @@ package com.example.final_project.entities;
 
 import jakarta.persistence.*;
         import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "accounts", schema = "banking")
 @Data
@@ -98,7 +102,4 @@ public class Account {
         this.customer = customer;
     }
 
-    public String getAccountType() {
-        return customer.
-    }
 }
