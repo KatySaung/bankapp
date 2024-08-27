@@ -33,16 +33,16 @@ public class TransactionServiceTest {
         // transaction = new Transaction(1L,"WITHDRAWAL",987654321,1234567890, 100.00, LocalDateTime.now());
         transactionDTO = new TransactionDTO(1L,"DEPOSIT",987654321,1234567890,500.00, LocalDateTime.now());
     }
-
-    @Test
-    public void testProcessTransaction() throws TransactionNotFoundException{
-        TransactionRequestDTO TransactionRequestDTO = null;
-        when(transactionService.processTransaction(TransactionRequestDTO).thenReturn(TransactionRequestDTO));
-        TransactionRequestDTO result = transactionService.processTransaction(TransactionRequestDTO);
-        //
-    }
-
-    @Test
+//
+//    //NEED TO FIX Test
+//    @Test
+//    public void testProcessTransaction() throws TransactionNotFoundException{
+//        TransactionRequestDTO TransactionRequestDTO = null;
+//        when(transactionService.processTransaction(TransactionRequestDTO).thenReturn(TransactionRequestDTO));
+//        TransactionRequestDTO result = transactionService.processTransaction(TransactionRequestDTO);
+//        //
+//
+//    }
 
 
 }

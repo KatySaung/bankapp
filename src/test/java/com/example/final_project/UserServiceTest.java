@@ -1,21 +1,15 @@
 //package com.example.final_project;
 //
-//import com.example.final_project.entities.User;  // Correct import for your User entity
-//import com.example.final_project.repository.UserRepository;
-//import com.example.final_project.service.UserService;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.mockito.InjectMocks;
 //import org.mockito.Mock;
 //import org.mockito.MockitoAnnotations;
-//import org.springframework.data.crossstore.ChangeSetPersister;
 //
 //import java.util.ArrayList;
-//import java.util.List;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static org.mockito.ArgumentMatchers.any;  // Correct import for any()
 //import static org.mockito.Mockito.verify;
 //import static org.mockito.Mockito.when;
 //

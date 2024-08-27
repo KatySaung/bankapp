@@ -81,7 +81,7 @@ public class CustomerController {
         return ResponseEntity.status(201).body(newCustomer);
     }
 
-    @DeleteMapping("/{customerNumber}")
+    @DeleteMapping
     public ResponseEntity<Double> deleteCustomer(@PathVariable Long customerNumber) {
         try {
             double totalFunds = customerService.deleteCustomer(customerNumber);
