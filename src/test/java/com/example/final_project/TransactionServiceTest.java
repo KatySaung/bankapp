@@ -10,14 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.when;
 
 
 public class TransactionServiceTest {
-
     @Mock
     private TransactionRepository transactionRepository;
 
