@@ -3,23 +3,6 @@ package com.example.final_project.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-public class AccountDTO {
-    private double balance;
-    private String accountType;
-    private Integer accountNumber;
-    private Integer routNum;
-    private Long accountCustomerId;
+import java.util.List;
 
-    public AccountDTO(String accountType, Long accountCustomerId, double balance) {
-        this.accountType = accountType;
-        this.accountCustomerId = accountCustomerId;
-        this.balance = balance;
-        //this.accountNumber//generate random number;
-        //this.routNum//generate random number;
-    }
-
-    public AccountDTO() {}
-}
-
+public record AccountDTO(Integer number, Integer sortCode, String name, Double openingBalance, List<TransactionDTO> transactions, Double balance) {}

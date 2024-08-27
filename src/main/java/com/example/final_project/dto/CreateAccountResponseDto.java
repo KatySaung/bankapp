@@ -3,26 +3,20 @@ package com.example.final_project.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class CreateAccountResponseDto {
-    private Integer number;
-    private Integer sortCode;
-    private String name;
-    private Double openingBalance;
-    private Integer[] transactions;
+    private Integer accountNumber;
+    private Integer routingNumber;
+    private String accountName;
     private Double balance;
-    private Integer customer;
+    private Long customerId;
 
-    public CreateAccountResponseDto() {}
-    public CreateAccountResponseDto(Integer number, Integer sortCode, String name, Double openingBalance, Integer[] transactions, Double balance, Integer customer) {
-        this.number = number;
-        this.sortCode = sortCode;
-        this.name = name;
-        this.openingBalance = openingBalance;
-        this.transactions = transactions;
+    public CreateAccountResponseDto(Integer accountNumber, Integer routingNumber, String accountName, Double balance, Long customerId) {
+        this.accountNumber = accountNumber;
+        this.routingNumber = routingNumber;
+        this.accountName = accountName;
         this.balance = balance;
-        this.customer = customer;
+        this.customerId = customerId;
     }
-
 }

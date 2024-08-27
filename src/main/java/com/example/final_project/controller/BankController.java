@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 public class BankController {
+
     @GetMapping("/sortCode")
     public ResponseEntity<String> getSortCode() {
         return ResponseEntity.ok("1234");
     }
 }
+
