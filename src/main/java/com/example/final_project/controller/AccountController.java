@@ -40,4 +40,3 @@ public class AccountController {
         return ResponseEntity.ok(finalBalance);
     }
 }
-
