@@ -88,10 +88,10 @@
 //    public void testDeleteUser() {
 //        users.add(new User("tchico", "tchicopassword"));
 //        when(userRepository.findById(any(Long.class))).thenReturn(java.util.Optional.of(users.get(0)));
-//        userService.deleteCustomer(users.get(0).getCustomerId());
-//        verify(userRepository).deleteById(users.get(0).getCustomerId());
+//        userService.deleteUser(users.get(0).getUserId());
+//        verify(userRepository).deleteById(users.get(0).getUserId());
 //        when(userRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
-//        assertThrows(ChangeSetPersister.NotFoundException.class, () -> userService.deleteCustomer(users.get(0).getUserId()));
+//        assertThrows(ChangeSetPersister.NotFoundException.class, () -> userService.deleteUser(users.get(0).getUserId()));
 //    }
 //
 //

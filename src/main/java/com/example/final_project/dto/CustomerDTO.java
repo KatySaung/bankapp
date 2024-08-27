@@ -2,6 +2,7 @@ package com.example.final_project.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.List;
 
 @Getter
@@ -9,11 +10,9 @@ import java.util.List;
 public class CustomerDTO {
     private Long id;
     private String fullName;
-    private List<AccountagainDTO> accounts;
+    private List<Integer> accounts;
 
-    public CustomerDTO() {}
-
-    public CustomerDTO(Long id, String fullName, List<AccountagainDTO> accounts) {
+    public CustomerDTO(Long id, String fullName, List<Integer> accounts) {
         this.id = id;
         this.fullName = fullName;
         this.accounts = accounts;

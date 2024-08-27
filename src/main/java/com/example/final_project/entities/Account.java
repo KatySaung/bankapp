@@ -1,63 +1,52 @@
 package com.example.final_project.entities;
 
+import com.example.final_project.repository.AccountRepository;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "accounts", schema = "banking")
 @Data
+@NoArgsConstructor
 public class Account {
-//    private AtomicInteger accId = new AtomicInteger(1);
-//
-//    private AtomicInteger routId = new AtomicInteger(1);
-//
-//    public int generateUniqueAccId(){
-//        return accId.getAndIncrement();
-//    }
-//
-//    public int generateUniqueRoutId(){
-//        return routId.getAndIncrement();
-//    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "account_id")
+    private Long accountId;
 
-    @Column(nullable = false)
-    private double balance;
+    @Column(name = "account_number", nullable = false, unique = true)
+    private Integer accountNumber;
 
-    @Column(nullable = false)
+    @Column(name = "sort_code", nullable = false)
+    private Integer sortCode;
+
+    @Column(name = "account_name", nullable = false)
+    private String accountName;
+
+    @Column(name = "account_type", nullable = false)
     private String accountType;
 
-    @Column(nullable = false, unique = true)
-    private int accountNumber;
+    @Column(name = "balance", nullable = false)
+    private Double balance;
 
-    @Column(nullable = false, unique = true)
-    private int sortCode;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "account_user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    public Account(double balance, String accountType, Integer accountNumber, int sortCode, Customer customer) {
-        this.balance = balance;
-        this.accountType = accountType;
+    public Account(Integer accountNumber, Integer sortCode, String accountName, String accountType, Double balance, Customer customer) {
         this.accountNumber = accountNumber;
         this.sortCode = sortCode;
+        this.accountName = accountName;
+        this.accountType = accountType;
+        this.balance = balance;
         this.customer = customer;
     }
 
-//    public Account(double balance, String accountType, User user) {
-//        this.balance = balance;
-//        this.accountType = accountType;
-//        this.accountNumber = generateUniqueAccId();
-//        this.routNum = generateUniqueRoutId();
-//        this.user = user;
-//    }
-
-    public Account() {}
 }
