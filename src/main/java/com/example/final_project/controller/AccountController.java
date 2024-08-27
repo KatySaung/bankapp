@@ -39,4 +39,9 @@ public class AccountController {
         double finalBalance = accountService.deleteAccount(accountNumber);
         return ResponseEntity.ok(finalBalance);
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> final-project

@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/transaction")
 @CrossOrigin
+<<<<<<< HEAD
 
+=======
+>>>>>>> final-project
 public class TransactionController {
 
     @Autowired

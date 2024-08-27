@@ -29,3 +29,4 @@ ON CONFLICT DO NOTHING;
 INSERT INTO banking.transactions (from_account_number, to_account_number, amount, transaction_type, timestamp) VALUES
 (987654321, NULL, 50.00, 'WITHDRAWAL', NOW())
 ON CONFLICT DO NOTHING;
+

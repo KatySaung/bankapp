@@ -10,15 +10,16 @@ public class AccountDTO {
     private String accountType;
     private Integer accountNumber;
     private Integer routNum;
-    private Long accountUserId;
+    private Long accountCustomerId;
 
-    public AccountDTO(double balance, String accountType, Integer accountNumber, Long accountUserId) {
-        this.balance = balance;
+    public AccountDTO(String accountType, Long accountCustomerId, double balance) {
         this.accountType = accountType;
-        this.accountNumber = accountNumber;
-        //this.routNum = routNum;
-        this.accountUserId = accountUserId;
+        this.accountCustomerId = accountCustomerId;
+        this.balance = balance;
+        //this.accountNumber//generate random number;
+        //this.routNum//generate random number;
     }
 
     public AccountDTO() {}
 }
+
