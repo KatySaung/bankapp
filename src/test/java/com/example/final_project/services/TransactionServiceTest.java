@@ -1,18 +1,14 @@
-package com.example.final_project;
+package com.example.final_project.services;
 
 import com.example.final_project.dto.TransactionDTO;
-import com.example.final_project.dto.TransactionRequestDTO;
 import com.example.final_project.entities.Transaction;
 import com.example.final_project.repository.TransactionRepository;
 import com.example.final_project.service.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
-
-import static org.mockito.Mockito.when;
 
 
 public class TransactionServiceTest {

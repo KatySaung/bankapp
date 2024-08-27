@@ -1,4 +1,4 @@
-package com.example.final_project;
+package com.example.final_project.services;
 
 import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.entities.Account;
