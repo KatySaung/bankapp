@@ -1,16 +1,16 @@
 package com.example.final_project.controller;
 
 import com.example.final_project.dto.AccountDTO;
-import com.example.final_project.dto.CreateAccountRequestDTO;
 import com.example.final_project.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/account")
-@CrossOrigin
+import java.util.List;
 
+@RestController
+@RequestMapping("/accounts")
+@CrossOrigin
 public class AccountController {
 
     @Autowired
@@ -20,6 +20,12 @@ public class AccountController {
     public ResponseEntity<AccountDTO> getAccount(@PathVariable Integer accountNumber) {
         AccountDTO account = accountService.getAccountByNumber(accountNumber);
         return ResponseEntity.ok(account);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AccountDTO>> getAllAccounts() {
+        List<AccountDTO> accounts = accountService.getAllAccounts();
+        return ResponseEntity.ok(accounts);
     }
 
     @PostMapping
@@ -32,21 +38,5 @@ public class AccountController {
     public ResponseEntity<Double> deleteAccount(@PathVariable Integer accountNumber) {
         double finalBalance = accountService.deleteAccount(accountNumber);
         return ResponseEntity.ok(finalBalance);
-    }
-
-    @PostMapping
-    public CreateAccountRequestDTO createAccount(CreateAccountRequestDTO request) {
-        if(request.getCustomerId() != null) {
-            return new CreateAccountRequestDTO(
-                    12345677,
-                    4444,
-                    request.getAccountName(),
-                    request.getOpeningBalance(),
-                    new Integer[0],
-                    request.getOpeningBalance(),
-                    request.getCustomerId()
-                    );
-        }
-        return request;
     }
 }
