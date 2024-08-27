@@ -51,9 +51,15 @@ package com.example.final_project.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "customers", schema = "banking")
 @Data
@@ -68,11 +74,16 @@ public class Customer {
     @Column(name = "full_name", nullable = false, unique = true)
     private String fullName;
 
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();  // Initialize list
 
     public Customer(String fullName) {
         this.fullName = fullName;
+        this.username = fullName.toLowerCase().replaceAll(" ", "");
+        this.accounts = new ArrayList<>();  // Initialize list in constructor
     }
 
     public void addAccount(Account account) {
