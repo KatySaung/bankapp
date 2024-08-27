@@ -1,9 +1,16 @@
 package com.example.final_project.entities;
 
+import com.example.final_project.repository.AccountRepository;
 import jakarta.persistence.*;
+<<<<<<< HEAD
 
 import lombok.Data;
 import lombok.Getter;
+=======
+import lombok.Data;
+import lombok.Getter;
+import lombok.Data;
+>>>>>>> b4f5bc80a5b818ea9437ab8a35d2d860ed2d6d7a
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 

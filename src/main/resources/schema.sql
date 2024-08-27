@@ -36,8 +36,8 @@ CREATE TABLE transactions (
     amount NUMERIC(15, 2) NOT NULL,
     transaction_type VARCHAR(20) NOT NULL,
     transaction_timestamp TIMESTAMP NOT NULL,
-    CONSTRAINT fk_from_account FOREIGN KEY (from_account_number) REFERENCES accounts(account_number),
-    CONSTRAINT fk_to_account FOREIGN KEY (to_account_number) REFERENCES accounts(account_number)
+    CONSTRAINT fk_from_account FOREIGN KEY (from_account_number) REFERENCES accounts(account_number) ON DELETE CASCADE,
+    CONSTRAINT fk_to_account FOREIGN KEY (to_account_number) REFERENCES accounts(account_number) ON DELETE CASCADE
 );
 
 CREATE TABLE banking.bank_info (

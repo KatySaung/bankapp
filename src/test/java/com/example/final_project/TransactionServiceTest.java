@@ -34,15 +34,24 @@ public class TransactionServiceTest {
         transactionDTO = new TransactionDTO(1L,"DEPOSIT",987654321,1234567890,500.00, LocalDateTime.now());
     }
 //
+<<<<<<< HEAD
 //    //NEED TO FIX Test
+=======
+>>>>>>> b4f5bc80a5b818ea9437ab8a35d2d860ed2d6d7a
 //    @Test
 //    public void testProcessTransaction() throws TransactionNotFoundException{
 //        TransactionRequestDTO TransactionRequestDTO = null;
 //        when(transactionService.processTransaction(TransactionRequestDTO).thenReturn(TransactionRequestDTO));
 //        TransactionRequestDTO result = transactionService.processTransaction(TransactionRequestDTO);
 //        //
+<<<<<<< HEAD
 //
 //    }
+=======
+//    }
+//
+//    @Test
+>>>>>>> b4f5bc80a5b818ea9437ab8a35d2d860ed2d6d7a
 
 
 }
