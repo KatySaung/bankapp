@@ -9,7 +9,9 @@ import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class AccountService {
                 account.getAccountName(),
                 account.getBalance(),
                 new ArrayList<TransactionDTO>(),
-                account.getBalance());
+                account.getBalance(),
+                account.getCustomer().getCustomerId());
     }
 
     public CreateAccountResponseDto createAccount(CreateAccountRequestDTO requestDto) {
@@ -61,10 +64,21 @@ public class AccountService {
 
     public double deleteAccount(Integer accountNumber) {
         Account account = accountRepository.findByAccountNumber(accountNumber)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account Number not found."));//RuntimeException("Account not found"));
         double finalBalance = account.getBalance();
         accountRepository.delete(account);
         return finalBalance;
+
+//        Customer customer = customerRepository.findById(customerId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
+//
+//        double totalFunds = customer.getAccounts().stream()
+//                .mapToDouble(Account::getBalance)
+//                .sum();
+//
+//        customerRepository.delete(customer);
+//
+//        return totalFunds;
     }
 
     private int generateUniqueAccountNumber() {
@@ -82,7 +96,9 @@ public class AccountService {
                         account.getAccountName(),
                         account.getBalance(),
                         new ArrayList<TransactionDTO>(),
-                        account.getBalance()))
+                        account.getBalance(),
+                        account.getCustomer().getCustomerId()))
+
                 .collect(Collectors.toList());
     }
 }
