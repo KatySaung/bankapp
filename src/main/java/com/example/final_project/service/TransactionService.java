@@ -46,7 +46,7 @@ public class TransactionService {
         transactionRepository.save(transaction);
 
         return new TransactionDTO(
-                transaction.getId(),
+                transaction.getTransactionId(),
                 transaction.getFromAccountNumber(),
                 transaction.getToAccountNumber(),
                 transaction.getAmount(),
