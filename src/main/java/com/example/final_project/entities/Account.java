@@ -42,4 +42,8 @@ public class Account {
         this.balance = balance;
         this.customer = customer;
     }
+
+    public String getAccountType() {
+        return customer.
+    }
 }
