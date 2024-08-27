@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Transaction {
 
+    //import lombok.Getter;
+    //import lombok.Setter;
+    //@Getter
+    //@Setter
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transaction_id")
@@ -31,11 +36,12 @@ public class Transaction {
     @Column(name = "transaction_timestamp", nullable = false)
     private LocalDateTime timestamp = LocalDateTime.now();
 
-    public Transaction(Integer fromAccountNumber, Integer toAccountNumber, Double amount, String transactionType, LocalDateTime timestamp) {
+    public Transaction(Long transactionId,String transactionType, Integer fromAccountNumber, Integer toAccountNumber, Double amount, LocalDateTime timestamp) {
+        this.transactionId = transactionId;
+        this.transactionType = transactionType;
         this.fromAccountNumber = fromAccountNumber;
         this.toAccountNumber = toAccountNumber;
         this.amount = amount;
-        this.transactionType = transactionType;
         this.timestamp = timestamp != null ? timestamp : LocalDateTime.now();
     }
 }
