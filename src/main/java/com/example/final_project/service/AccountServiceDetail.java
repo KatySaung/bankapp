@@ -1,4 +1,4 @@
 package com.example.final_project.service;
 
-public class AccountServiceDetail {
+public interface AccountServiceDetail {
 }
