@@ -20,6 +20,10 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    //CREATE LOGIN METHOD? IF SO, UPDATE CUSTOMERSERVICETEST
+
+
+
     @Transactional
     public CustomerDTO registerCustomer(String fullName) {
         Customer customer = new Customer(fullName);
@@ -47,7 +51,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public double deleteCustomer(Long customerId) {
+    public static double deleteCustomer(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
 
