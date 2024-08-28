@@ -14,7 +14,6 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
 import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,13 +35,13 @@ public class CustomerServiceTest {
 
     }
 
-//    @Test
-//    public void testRegisterCustomer() {
-//        customers.add(new Customer("tchico"));
-//        when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(0));
-//        Customer customer = new Customer("tchico");
-//        Customer savedCustomer = customerService.registerCustomer(customer);
-//    }
+    @Test
+    public void testRegisterCustomer() {
+        customers.add(new Customer("tchico"));
+        when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(0));
+        Customer customer = new Customer("tchico");
+        Customer savedCustomer = customerService.registerCustomer(customer);
+    }
 
     @Test
     public void testNullAndEmptyParams() {
@@ -80,14 +79,14 @@ public class CustomerServiceTest {
 //    }
 
 
-//    @Test
-//    public void testDeleteCustomer() {
-//        customers.add(new Customer("tchico"));
-//        when(customerRepository.findById()).thenReturn(java.util.Optional.of(customers.get(0)));
-//        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
-//        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
-//        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
-//    }
+    @Test
+    public void testDeleteCustomer() {
+        customers.add(new Customer("tchico"));
+        when(customerRepository.findById()).thenReturn(java.util.Optional.of(customers.get(0)));
+        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
+        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
+        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
+    }
 
 
 }
