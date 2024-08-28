@@ -29,7 +29,6 @@ public class AccountService {
     public AccountDTO getAccountByNumber(int accountNumber) {
         Account account = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
-
         return new AccountDTO(
                 account.getAccountNumber(),
                 account.getSortCode(),
@@ -46,11 +45,11 @@ public class AccountService {
 
         Account account = new Account();
         account.setAccountName(requestDto.getAccountName());
-        account.setAccountType("Default"); // Or assign based on logic
+        account.setAccountType("Default");
         account.setBalance(requestDto.getOpeningBalance());
         account.setCustomer(customer);
         account.setAccountNumber(generateUniqueAccountNumber());
-        account.setSortCode(1234); // Default sort code for the bank
+        account.setSortCode(1234);
 
         accountRepository.save(account);
 
@@ -69,16 +68,6 @@ public class AccountService {
         accountRepository.delete(account);
         return finalBalance;
 
-//        Customer customer = customerRepository.findById(customerId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
-//
-//        double totalFunds = customer.getAccounts().stream()
-//                .mapToDouble(Account::getBalance)
-//                .sum();
-//
-//        customerRepository.delete(customer);
-//
-//        return totalFunds;
     }
 
     private int generateUniqueAccountNumber() {
