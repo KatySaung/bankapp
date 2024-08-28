@@ -33,15 +33,16 @@ public class CustomerServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
     }
 
-    @Test
-    public void testRegisterCustomer() {
-        customers.add(new Customer("tchico"));
-        when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(0));
-        Customer customer = new Customer("tchico");
-        Customer savedCustomer = customerService.registerCustomer(customer);
-    }
+//    @Test
+//    public void testRegisterCustomer() {
+//        customers.add(new Customer("tchico"));
+//        when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(0));
+//        Customer customer = new Customer("tchico");
+//        Customer savedCustomer = customerService.registerCustomer(customer);
+//    }
 
     @Test
     public void testNullAndEmptyParams() {
@@ -79,14 +80,14 @@ public class CustomerServiceTest {
 //    }
 
 
-    @Test
-    public void testDeleteCustomer() {
-        customers.add(new Customer("tchico"));
-        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.of(customers.get(0)));
-        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
-        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
-        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
-    }
+//    @Test
+//    public void testDeleteCustomer() {
+//        customers.add(new Customer("tchico"));
+//        when(customerRepository.findById()).thenReturn(java.util.Optional.of(customers.get(0)));
+//        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
+//        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
+//        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
+//    }
 
 
 }

@@ -34,6 +34,14 @@ created routing number field for accounts, and generating unique routing numbers
 ### Tuesday 08/27: Completed:
 <p> Tiego: Fixed transaction</p>
 <p> Kais: Sort generating routing and account numbers </p>
+<p> Kat: updated testing services for customer and transaction</p>
+
+
+### Wednesday 08/28: Completed:
+<p> Tiego: </p>
+<p> Kais: </p>
+<p> Kat: </p>
+<p> Andres: </p>
 
 
 # To be Completed:

@@ -51,7 +51,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public static double deleteCustomer(Long customerId) {
+    public double deleteCustomer(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
 
