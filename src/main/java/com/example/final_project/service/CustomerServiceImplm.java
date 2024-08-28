@@ -20,10 +20,6 @@ public class CustomerServiceImplm implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    //CREATE LOGIN METHOD? IF SO, UPDATE CUSTOMERSERVICETEST
-
-
-
     @Transactional
     public CustomerDTO registerCustomer(String fullName) {
         Customer customer = new Customer(fullName);

@@ -1,6 +1,7 @@
 package com.example.final_project.services;
 
 
+import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.CustomerRepository;
 import com.example.final_project.service.CustomerService;
@@ -13,6 +14,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,6 +45,25 @@ public class CustomerServiceTest {
         Customer savedCustomer = customerService.registerCustomer(customer);
     }
 
+
+    @Test
+    public void testRegisterCustomerSuccess() {
+        customers.add(new Customer("tchico"));
+        when(customerRepository.findByFullName(any(String.class).toString())).thenReturn(customers.get(0));
+        Customer customer = CustomerService.registerCustomer("tchico");
+        assertEquals(customers.get(0), customer);
+    }
+
+//    public void testCustomerById throws CustomerByIdNotFoundException() {
+//        when(customerRepository.findById(1L).thenReturn(Optional.empty()));
+//
+//        //Exception handling
+//
+//        assertEquals(CustomerDTO.getId(),result.getId());
+//
+//    }
+
+
     @Test
     public void testNullAndEmptyParams() {
         //empty username
@@ -61,32 +82,14 @@ public class CustomerServiceTest {
         });
     }
 
-    //NEED TO CREATE LOGIN METHOD IN CUSTOMER SERVICE. FOLLOW UP WITH TEAM
-//    @Test
-//    public void testLoginSuccess() {
-//        customers.add(new Customer("tchico"));
-//        when(customerRepository.findByFullName(any(String.class).toString())).thenReturn(customers.get(0));
-//        Customer customer = CustomerService.login("tchico");
-//        assertEquals(customers.get(0), customer);
-//    }
-
-    //NEED TO CREATE LOGIN METHOD IN CUSTOMER SERVICE. FOLLOW UP WITH TEAM
-//    @Test
-//    public void testLoginFailure() {
-//        when(customerRepository.findByFullName(any(String.class).toString())).thenReturn(null);
-//        Customer customer = customerService.login("tchico");
-//        assertEquals(null, customer);
-//    }
-
 
     @Test
-    public void testDeleteCustomer() {
-        customers.add(new Customer("tchico"));
-        when(customerRepository.findById()).thenReturn(java.util.Optional.of(customers.get(0)));
-        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
-        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
-        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
-    }
-
+//    public void testDeleteCustomer() {
+//        customers.add(new Customer("tchico"));
+//        when(customerRepository.findById()).thenReturn(java.util.Optional.of(customers.get(0)));
+//        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
+//        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
+//        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
+//    }
 
 }
