@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 public class CreateAccountResponseDto {
     private Integer accountNumber;
     private Integer sortCode;
