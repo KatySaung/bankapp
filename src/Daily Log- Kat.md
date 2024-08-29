@@ -39,9 +39,12 @@ created routing number field for accounts, and generating unique routing numbers
 
 ### Wednesday 08/28: Completed:
 <p> Tiego: </p>
-<p> Kais: </p>
+<p> Kais: Refactor service classes </p>
 <p> Kat: </p>
 <p> Andres: </p>
+
+### Thursday 08/29: Completed:
+<p> Kat: Completed tests to register customer and to find customer by Id </p>
 
 
 # To be Completed:
