@@ -50,10 +50,7 @@
 package com.example.final_project.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +78,12 @@ public class Customer {
     private List<Account> accounts = new ArrayList<>();  // Initialize list
 
     public Customer(String fullName) {
+        this.fullName = fullName;
+        this.username = fullName.toLowerCase().replaceAll(" ", "");
+        this.accounts = new ArrayList<>();  // Initialize list in constructor
+    }
+
+    public Customer(Long id , String fullName) {
         this.fullName = fullName;
         this.username = fullName.toLowerCase().replaceAll(" ", "");
         this.accounts = new ArrayList<>();  // Initialize list in constructor

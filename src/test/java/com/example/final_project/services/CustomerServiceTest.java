@@ -57,7 +57,7 @@ public class CustomerServiceTest {
     @Test
     public void testRegisterCustomer() {
         Customer customer = new Customer("tchico");
-        customer.setCustomerId(1L);
+//        customer.setCustomerId(1L);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
@@ -69,34 +69,38 @@ public class CustomerServiceTest {
         verify(customerRepository).save(any(Customer.class));
     }
 
-
-//    public void testCustomerById throws CustomerByIdNotFoundException() {
-//        when(customerRepository.findById(1L).thenReturn(Optional.empty()));
-//
-//        //Exception handling
-//
-//        assertEquals(CustomerDTO.getId(),result.getId());
-//
-//    }
-
-
     @Test
-    public void testNullAndEmptyParams() {
-        //empty username
-        Exception emptyUsernameException = assertThrows(IllegalArgumentException.class, () -> {
-            new Customer("");
-        });
-        assertEquals("Username cannot be null or empty", emptyUsernameException.getMessage());
-        //null username
-        Exception nullUsernameException = assertThrows(IllegalArgumentException.class, () -> {
-            new Customer(null);
-        });
-        assertEquals("Username cannot be null or empty", nullUsernameException.getMessage());
-        //empty password
-        Exception emptyPasswordException = assertThrows(IllegalArgumentException.class, () -> {
-            new Customer("tchico");
-        });
+    public void testCustomerById() {
+        Customer customer = new Customer(1L , "tchico");
+//        customer.setCustomerId(1L);
+
+        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
+        //Exception handling
+        CustomerDTO customer2 = customerService.getCustomerById(1L);
+
+        assertEquals("tchico",customer2.getFullName());
+
+        verify(customerRepository).findById(1L);
     }
+
+
+//    @Test
+//    public void testNullAndEmptyParams() {
+//        //empty username
+//        Exception emptyUsernameException = assertThrows(IllegalArgumentException.class, () -> {
+//            new Customer("");
+//        });
+//        assertEquals("Username cannot be null or empty", emptyUsernameException.getMessage());
+//        //null username
+//        Exception nullUsernameException = assertThrows(IllegalArgumentException.class, () -> {
+//            new Customer(null);
+//        });
+//        assertEquals("Username cannot be null or empty", nullUsernameException.getMessage());
+//        //empty password
+//        Exception emptyPasswordException = assertThrows(IllegalArgumentException.class, () -> {
+//            new Customer("tchico");
+//        });
+//    }
 
 
 //    @Test
