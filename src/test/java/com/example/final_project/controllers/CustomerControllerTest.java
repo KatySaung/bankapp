@@ -52,11 +52,8 @@ public class CustomerControllerTest {
 
     @BeforeEach
     void setup() {
-        Account acc = new Account();
-        acc.setAccountId(1L);
-        acc.setAccountNumber(1);
-        acc.setBalance((100.0));
         List<Integer> accounts = new ArrayList<>();
+        accounts.add(1);
         customerDTO = new CustomerDTO(1L,"Test Customer", accounts);
         customerDTO.setId(1L);
         customerDTO.setFullName("Test Customer");
