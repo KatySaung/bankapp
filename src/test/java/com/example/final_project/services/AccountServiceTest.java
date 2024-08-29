@@ -58,7 +58,7 @@ public class AccountServiceTest {
 
     }
 //    @Test
-//    public void testCreateCustomer(){
+//    public void testCreateCAccount(){
 ////        when(accountRepository.save(account)).thenReturn(account.);
 ////        customerDTO = customerService.registerCustomer("kathe");
 ////        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));

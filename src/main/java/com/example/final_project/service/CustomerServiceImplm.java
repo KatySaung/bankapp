@@ -23,7 +23,7 @@ public class CustomerServiceImplm implements CustomerService {
     @Transactional
     public CustomerDTO registerCustomer(String fullName) {
         Customer customer = new Customer(fullName);
-        customerRepository.save(customer);
+        customer = customerRepository.save(customer);
         return convertToCustomerDTO(customer);
     }
 

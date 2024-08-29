@@ -55,7 +55,7 @@ public class AccountServiceImplm implements AccountService {
         account.setAccountNumber(generateUniqueAccountNumber());
         account.setSortCode(1234); // Default sort code for the bank
 
-        accountRepository.save(account);
+        account = accountRepository.save(account);
 
         return new CreateAccountResponseDto(
                 account.getAccountNumber(),

@@ -5,31 +5,48 @@ import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.CustomerRepository;
 import com.example.final_project.service.CustomerService;
+import com.example.final_project.service.CustomerServiceImplm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+
+@ExtendWith(SpringExtension.class)
 public class CustomerServiceTest {
+
+    @TestConfiguration
+    static class CustomerServiceConfig {
+        @Bean
+        public CustomerService customerService() {
+            return new CustomerServiceImplm();
+        }
+    }
 
     List<Customer> customers = new ArrayList<>();
 
-    @Mock
+    @MockBean
     private CustomerRepository customerRepository;
 
-//    @InjectMocks
-//    private CustomerService customerService;
+    @Autowired
+    private CustomerService customerService;
 
     @BeforeEach
     public void setUp() {
@@ -37,22 +54,17 @@ public class CustomerServiceTest {
 
     }
 
-//    @Test
-//    public void testRegisterCustomer() {
-//        customers.add(new Customer("tchico"));
-//        when(customerRepository.save(any(Customer.class))).thenReturn(customers.get(0));
-//        Customer customer = new Customer("tchico");
-//        Customer savedCustomer = customerService.registerCustomer(customers);
-//    }
+    @Test
+    public void testRegisterCustomer() {
+        Customer customer = new Customer("tchico");
+        customer.setCustomerId(1L);
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+        CustomerDTO customer2 = customerService.registerCustomer("tchico");
+        assertEquals("tchico",customer2.getFullName());
+        assertEquals(1L, customer2.getId());
+        verify(customerRepository).save(any(Customer.class));
+    }
 
-
-//    @Test
-//    public void testRegisterCustomerSuccess() {
-//        customers.add(new Customer("tchico"));
-//        when(customerRepository.findByFullName(any(String.class).toString())).thenReturn(customers.get(0));
-//        Customer customer = CustomerService.registerCustomer("tchico");
-//        assertEquals(customers.get(0), customer);
-//    }
 
 //    public void testCustomerById throws CustomerByIdNotFoundException() {
 //        when(customerRepository.findById(1L).thenReturn(Optional.empty()));
