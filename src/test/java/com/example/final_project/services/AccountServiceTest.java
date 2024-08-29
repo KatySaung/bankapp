@@ -1,78 +1,90 @@
 package com.example.final_project.services;
 
 import com.example.final_project.dto.AccountDTO;
-import com.example.final_project.dto.CustomerDTO;
-import com.example.final_project.dto.RegisterCustomerDto;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.AccountRepository;
-import com.example.final_project.repository.CustomerRepository;
 import com.example.final_project.service.AccountService;
-import com.example.final_project.service.CustomerService;
+import com.example.final_project.service.AccountServiceImplm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import javax.security.auth.login.AccountNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-@ExtendWith(SpringExtension.class)
 public class AccountServiceTest {
     @Mock
     private AccountRepository accountRepository;
-    private AccountService accountService;
+    @InjectMocks
+    private AccountServiceImplm accountService;
 
+    private Customer customer;
     private Account account;
-    private AccountDTO accountDTO;
 
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        account = new Account(12345678,1234,"CK Account", "Checking",1000.00,new Customer("CK"));
-        accountDTO = new AccountDTO(12345678,1234,"Kat",500.00,null,200.00,1L);
+
+        Customer customer = new Customer("Tony Stark");
+        customer.setCustomerId(1L); //need customer id because it is in customer class. without this here, will get error
+        Account account = new Account(12345678,1234,"Tony Stark's Account", "Checking",1000.00, customer);
+//        System.out.println("Customer ID: " + customer.getCustomerId());
+
+//        accountService = new AccountServiceImplm(accountRepository, null);
     }
 
-    //
+
     @Test
+    //Failed Test, RunTime Exception from AccountServiceImplmn line 29. Add null conditional for testing in line 32-34.
     public void testFindAccountByNumber(){
+        Account account = new Account();
+        when(accountRepository.findByAccountNumber(12345678)).thenReturn(Optional.of(account));
+
+        AccountDTO accountDTO = accountService.getAccountByNumber(12345678);
+
+
+        assertNotNull(accountDTO, "AccountDTO should not be null");
+        assertEquals(12345678, accountDTO.number());
+        assertEquals(1234, accountDTO.sortCode());
+        assertEquals("Tony Stark's Account", accountDTO.name());
+        assertEquals(1000.00, accountDTO.balance());
+        assertEquals(customer.getCustomerId(),accountDTO.customerId());
+        verify(accountRepository).findByAccountNumber(12345678);
+
 
     }
-    @Test
-    public void testCreateCustomer(){
-//        when(accountRepository.save(account)).thenReturn(account.);
-//        customerDTO = customerService.registerCustomer("kathe");
-//        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
-//        assertEquals(customerDTO.getFullName(), "kathe");
-//        verify(customerRepository).save(any(Customer.class));
-    }
-
-    @Test
-    public void testUpdateAccount(){
-
-    }
-
 //    @Test
-//    public void testDeleteAccount(){
-//        account.getAccountNumber(accountNumber);
-//        when(accountRepository.findByAccountNumber()).thenReturn();
-//        verify(accountRepository.deleteByAccountNumber.getAccountNumber();
+//    public void testCreateCustomer(){
+////        when(accountRepository.save(account)).thenReturn(account.);
+////        customerDTO = customerService.registerCustomer("kathe");
+////        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
+////        assertEquals(customerDTO.getFullName(), "kathe");
+////        verify(customerRepository).save(any(Customer.class));
+//    }
+//
+//    @Test
+//    public void testUpdateAccount(){
 //
 //    }
-
-    @Test
-    public void testFindAllAccounts(){
-
-
-    }
-
+//
+////    @Test
+////    public void testDeleteAccount(){
+////        account.getAccountNumber(accountNumber);
+////        when(accountRepository.findByAccountNumber()).thenReturn();
+////        verify(accountRepository.deleteByAccountNumber.getAccountNumber();
+////
+////    }
+//
+//    @Test
+//    public void testFindAllAccounts(){
+//
+//
+//    }
+//
 
 
 

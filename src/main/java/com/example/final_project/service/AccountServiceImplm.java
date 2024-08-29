@@ -29,6 +29,9 @@ public class AccountServiceImplm implements AccountService {
     public AccountDTO getAccountByNumber(int accountNumber) {
         Account account = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
+        if (account.getCustomer() == null){
+            throw new RuntimeException("Customer is null in the Account");
+        }
 
         return new AccountDTO(
                 account.getAccountNumber(),
