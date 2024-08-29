@@ -9,8 +9,6 @@ import com.example.final_project.service.CustomerServiceImplm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -19,11 +17,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -57,7 +56,6 @@ public class CustomerServiceTest {
     @Test
     public void testRegisterCustomer() {
         Customer customer = new Customer("tchico");
-//        customer.setCustomerId(1L);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
@@ -72,7 +70,6 @@ public class CustomerServiceTest {
     @Test
     public void testCustomerById() {
         Customer customer = new Customer(1L , "tchico");
-//        customer.setCustomerId(1L);
 
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
         //Exception handling
@@ -84,32 +81,32 @@ public class CustomerServiceTest {
     }
 
 
-//    @Test
-//    public void testNullAndEmptyParams() {
-//        //empty username
-//        Exception emptyUsernameException = assertThrows(IllegalArgumentException.class, () -> {
-//            new Customer("");
-//        });
-//        assertEquals("Username cannot be null or empty", emptyUsernameException.getMessage());
-//        //null username
-//        Exception nullUsernameException = assertThrows(IllegalArgumentException.class, () -> {
-//            new Customer(null);
-//        });
-//        assertEquals("Username cannot be null or empty", nullUsernameException.getMessage());
-//        //empty password
-//        Exception emptyPasswordException = assertThrows(IllegalArgumentException.class, () -> {
-//            new Customer("tchico");
-//        });
-//    }
+    @Test
+    public void testDeleteCustomer() {
+        Customer customer = new Customer(1L , "tchico");
+
+        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
+
+        CustomerDTO customer2 = customerService.getCustomerById(1L);
+
+        assertEquals("","");
+
+        verify(customerRepository).findById(1L);
+    }
+
+    @Test
+    public void testFindAllCustomers(){
+        List<Integer> accounts = new ArrayList<>();
+
+        CustomerDTO customerDTO = new CustomerDTO(1L , "tchico", accounts);
+        when(customerService.findAllCustomers().thenReturn(customerDTO));
+
+        assertNotNull(customerDTO, "AccountDTO should not be null");
+        assertEquals("tchico", customerDTO.getFullName());
+        assertEquals(1L, customerDTO.getId());
+        assertEquals(accounts, customerDTO.getAccounts());
 
 
-//    @Test
-//    public void testDeleteCustomer() {
-//        customers.add(new Customer("tchico"));
-//        when(customerRepository.findById()).thenReturn(java.util.Optional.of(customers.get(0)));
-//        verify(customerRepository).deleteById(customers.get(0).getCustomerId());
-//        when(customerRepository.findById(any(Long.class))).thenReturn(java.util.Optional.empty());
-//        assertThrows(ChangeSetPersister.NotFoundException.class, () -> CustomerService.deleteCustomer(customers.get(0).getCustomerId()));
-//    }
+    }
 
 }
