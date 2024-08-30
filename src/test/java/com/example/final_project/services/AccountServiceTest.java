@@ -1,22 +1,34 @@
 package com.example.final_project.services;
 
 import com.example.final_project.dto.AccountDTO;
+<<<<<<< HEAD
+import com.example.final_project.dto.CreateAccountResponseDto;
 import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.AccountRepository;
-import com.example.final_project.service.AccountService;
 import com.example.final_project.service.AccountServiceImplm;
+=======
+import com.example.final_project.entities.Account;
+import com.example.final_project.entities.Customer;
+import com.example.final_project.repository.AccountRepository;
+import com.example.final_project.service.implementations.AccountServiceImplm;
+>>>>>>> 766fa48578cdbb34ff436900fa4eed3fb766e73e
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 766fa48578cdbb34ff436900fa4eed3fb766e73e
+>>>>>>> final-project
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -24,7 +36,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 public class AccountServiceTest {
 
-    List<AccountDTO> accountDTO = new ArrayList<>();
 
     @Mock
     private AccountRepository accountRepository;
@@ -58,14 +69,24 @@ public class AccountServiceTest {
         assertEquals(customer.getCustomerId(),accountDTO2.customerId());
         verify(accountRepository).findByAccountNumber(12345678);
 
-
     }
     @Test
+<<<<<<< HEAD
     public void testCreateCAccount(){
         when(accountRepository.save(any(Account.class))).thenReturn(accountDTO);
         AccountDTO accountDTO2 = accountServiceImplm.getAccountByNumber(12345678);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
+=======
+    public void testCreateAccount(){
+        Account account = new Account(12345678,1234,"Snowball's Checking Acct","CHECKING",5000.00, customer);
+        when(accountRepository.save(account)).thenReturn(account);
+
+        AccountDTO accountDTO2 = accountServiceImplm.getAccountByNumber(12345678);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("Snowball"));
+
+>>>>>>> final-project
         assertEquals(customerDTO.getFullName(), "kathe");
         verify(customerRepository).save(any(Customer.class));
     }
