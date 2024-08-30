@@ -100,8 +100,6 @@ public class TransactionServiceTest {
         verify(accountRepository).save(fromAccount);
         verify(transactionRepository).save(any(Transaction.class));
 
-}
-
-
+    }
 
 }
