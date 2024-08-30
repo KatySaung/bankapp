@@ -28,10 +28,7 @@ public class AccountServiceImplm implements AccountService {
 
     public AccountDTO getAccountByNumber(int accountNumber) {
         Account account = accountRepository.findByAccountNumber(accountNumber)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
-        if (account.getCustomer() == null){
-            throw new RuntimeException("Customer is null in the Account");
-        }
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
 
         return new AccountDTO(
                 account.getAccountNumber(),
@@ -45,7 +42,7 @@ public class AccountServiceImplm implements AccountService {
 
     public CreateAccountResponseDto createAccount(CreateAccountRequestDTO requestDto) {
         Customer customer = customerRepository.findById(requestDto.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
 
         Account account = new Account();
         account.setAccountName(requestDto.getAccountName());
@@ -55,7 +52,7 @@ public class AccountServiceImplm implements AccountService {
         account.setAccountNumber(generateUniqueAccountNumber());
         account.setSortCode(1234); // Default sort code for the bank
 
-        account = accountRepository.save(account);
+        accountRepository.save(account);
 
         return new CreateAccountResponseDto(
                 account.getAccountNumber(),
@@ -72,16 +69,6 @@ public class AccountServiceImplm implements AccountService {
         accountRepository.delete(account);
         return finalBalance;
 
-//        Customer customer = customerRepository.findById(customerId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
-//
-//        double totalFunds = customer.getAccounts().stream()
-//                .mapToDouble(Account::getBalance)
-//                .sum();
-//
-//        customerRepository.delete(customer);
-//
-//        return totalFunds;
     }
 
     public int generateUniqueAccountNumber() {

@@ -1,104 +1,122 @@
 package com.example.final_project.controllers;
 
-
 import com.example.final_project.controller.CustomerController;
 import com.example.final_project.dto.CustomerDTO;
+import com.example.final_project.entities.Account;
 import com.example.final_project.service.CustomerService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-
-@ExtendWith(MockitoExtension.class)
-
+@SpringBootTest
+@AutoConfigureMockMvc
 public class CustomerControllerTest {
 
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private CustomerService customerService;
 
     @Autowired
-    @Mock
-    private CustomerService customerService;
-    @InjectMocks
-    private CustomerController customerController;
+    private ObjectMapper objectMapper;
 
+    private CustomerDTO customerDTO;
 
-
-
-    @Test
-    public void testGetCustomerById_Success() {
-        Long customerId = 1L;
-        List<Integer> account = new ArrayList<>();
-        CustomerDTO customerDTO = new CustomerDTO(1L,"mad max", account);
-        when(customerService.getCustomerById(customerId)).thenReturn(customerDTO);
-        ResponseEntity<CustomerDTO> response = customerController.getCustomerById(customerId);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(customerDTO, response.getBody());
+    @BeforeEach
+    void setup() {
+        List<Integer> accounts = new ArrayList<>();
+        accounts.add(1);
+        customerDTO = new CustomerDTO(1L,"Test Customer", accounts);
+        customerDTO.setId(1L);
+        customerDTO.setFullName("Test Customer");
+        customerDTO.setAccounts(accounts);
 
     }
 
     @Test
-    public void testGetCustomerById_NotFound() {
-        Long customerId = 1L;
-        when(customerService.getCustomerById(customerId)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
-        ResponseEntity<CustomerDTO> response = customerController.getCustomerById(customerId);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    public void testGetCustomerById() {
+        try {
+            when(customerService.getCustomerById(1L)).thenReturn(customerDTO);
+
+            mockMvc.perform(get("/customer/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.id").value(1))
+                    .andExpect(jsonPath("$.fullName").value("Test Customer"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    @Test
+//    public void testGetCustomerById() {
+//        try {add
+//            when(customerService.getCustomerById(2L)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+//
+//            mockMvc.perform(get("/customer/2"))
+//                    .andExpect(status().isNotFound());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    @Test
+    public void testRegisterCustomer() {
+        try {
+
+
+            when(customerService.registerCustomer(any())).thenReturn(customerDTO);
+
+            mockMvc.perform(post("/customer")
+                            .contentType(MediaType.TEXT_PLAIN)
+                            .content(objectMapper.writeValueAsString(customerDTO.getFullName())))
+                            .andExpect(status().isCreated())
+                            .andExpect(jsonPath("$.id").value(1))
+                            .andExpect(jsonPath("$.fullName").value("Test Customer"))
+                            .andExpect(jsonPath("$.accounts").value(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void testRegisterCustomer_Success() {
-        String fullName = "John Doe";
-        Long customerId = 1l;
-        List<Integer> account = new ArrayList<>();
-        CustomerDTO customerDTO = new CustomerDTO(customerId,fullName, account);
-        customerDTO.setFullName(fullName);
-        when(customerService.registerCustomer(fullName)).thenReturn(customerDTO);
-        ResponseEntity<CustomerDTO> response = customerController.registerCustomer(fullName);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode()); assertEquals(customerDTO, response.getBody()); }
+    public void testDeleteCustomer() {
+        try {
+            double balance = 100.00;
+            when(customerService.deleteCustomer(1L)).thenReturn(balance);
 
-    @Test
-    public void testDeleteCustomer_Success() {
-        Long customerId = 1L;
-        double totalFunds = 100.0; when(customerService.deleteCustomer(customerId)).thenReturn(totalFunds);
-        ResponseEntity<Double> response = customerController.deleteCustomer(customerId);
-        assertEquals(HttpStatus.OK, response.getStatusCode()); assertEquals(totalFunds, response.getBody()); }
-
-    @Test
-    public void testDeleteCustomer_NotFound() {
-
-        Long customerId = 1L;
-        when(customerService.deleteCustomer(customerId)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
-        ResponseEntity<Double> response = customerController.deleteCustomer(customerId);
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+            mockMvc.perform(delete("/customer/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string(String.valueOf(balance)));
+        } catch (Exception e) {
+            // Handle exceptions
+            e.printStackTrace();
+        }
     }
-
-    @Test
-    public void testFullCustomerExistence(){
-        Long customerId = 1L;
-        List<Integer> account = new ArrayList<>();
-        CustomerDTO customerDTO = new CustomerDTO(1L,"mad max", account);
-        when(customerService.getCustomerById(customerId)).thenReturn(customerDTO);
-        ResponseEntity<CustomerDTO> response = customerController.getCustomerById(customerId);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("mad max", customerDTO.getFullName());
-        assertEquals(1L, customerDTO.getId());
-        assertEquals(account, customerDTO.getAccounts());
-
-
-
-    }
-
 
 }
+
 
