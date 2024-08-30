@@ -52,6 +52,12 @@ public class Account {
         this.customer = customer;
     }
 
-    public Account(int i, int i1, String acc) {
+    public Account(int accountNumber, int sortCode, String accountName) {
+        this.accountNumber = accountNumber;
+        this.sortCode = sortCode;
+        this.accountName = accountName;
+        this.accountType = null;
+        this.balance = null;
+        this.customer = customer;
     }
 }
