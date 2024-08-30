@@ -46,9 +46,13 @@ created routing number field for accounts, and generating unique routing numbers
 ### Thursday 08/29: Completed:
 <p> Kat: Completed tests to register customer and to find customer by Id </p>
 
+### Friday 08/30: Completed:
+<p> Kat: 100% completed service tests for transaction and customer </p>
+
+
 
 # To be Completed:
-<p> BDD Testing (controller and services)</p>
+<p> BDD Testing (All controller and Account in services)</p>
 <p> Extension: Work with another team to connect your banks together, so that customers can transfer funds from an account with your bank, to an account with another bank.</p>
 <p> Extension: Any other features not asked for that might be useful for customers of your bank</p>
 <p> Optional #7: Optionally an account can have an overdraft facility. </p>
