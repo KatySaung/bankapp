@@ -32,4 +32,16 @@ public class TransactionRequestDTO {
         this.amount = amount;
 
     }
+    public TransactionRequestDTO(Integer type, Integer fromAccount, Double amount){
+        this.type = type;
+        this.fromAccount = fromAccount;
+        this.fromAccountSortCode = null;
+        this.toAccount = null;
+        this.toAccountSortCode = null;
+        this.amount = amount;
+
+    }
+
+
+
 }

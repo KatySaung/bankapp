@@ -51,7 +51,7 @@ public class TransactionServiceTest {
         Customer customer1 = new Customer("CK Boss");
         Account toAccount = new Account(87654321,1234,"CK Checking Account","CHECKING",1000.00, customer1);
 
-        TransactionRequestDTO transactionrequestDTO = new TransactionRequestDTO(2,87654321, 1234,500.00);
+        TransactionRequestDTO transactionrequestDTO = new TransactionRequestDTO(2,87654321,1234,500.00);
 
         when(accountRepository.findByAccountNumber(87654321)).thenReturn(Optional.of(toAccount));
 
@@ -64,23 +64,23 @@ public class TransactionServiceTest {
 
     }
 
-//    @Test
-//    public void testProcessWithdrawalTransaction(){
-//        Customer customer1 = new Customer("CK Boss");
-//        Account fromAccount = new Account(1234,123456,"CK Checking Account","SAVINGS",5000.00, customer1);
-//
-//        TransactionRequestDTO transactionrequestDTO = new TransactionRequestDTO(1,2000,null,null, null,4000.00);
-//        when(accountRepository.findByAccountNumber(1234)).thenReturn(Optional.of(fromAccount));
-//        //Transaction savedTransaction = transactionService.processTransaction(TransactionRequestDTO);
-//
-//        TransactionDTO result = transactionService.processTransaction(transactionrequestDTO);
-//
-//        assertNotNull(result);
-//        assertEquals(4000, fromAccount.getBalance());
-//        verify(accountRepository).save(fromAccount);
-//        verify(transactionRepository).save(any(Transaction.class));
-//
-//    }
+    @Test
+    public void testProcessWithdrawalTransaction(){
+        Customer customer1 = new Customer("CK Boss");
+        Account fromAccount = new Account(12345678,null,"CK Savings Account","SAVINGS",5000.00, customer1);
+
+        TransactionRequestDTO transactionrequestDTO = new TransactionRequestDTO(1,12345678,null,null, null,4000.00);
+        when(accountRepository.findByAccountNumber(12345678)).thenReturn(Optional.of(fromAccount));
+        //Transaction savedTransaction = transactionService.processTransaction(TransactionRequestDTO);
+
+        TransactionDTO result = transactionService.processTransaction(transactionrequestDTO);
+
+        assertNotNull(result);
+        assertEquals(1000, fromAccount.getBalance());
+        verify(accountRepository).save(fromAccount);
+        verify(transactionRepository).save(any(Transaction.class));
+
+    }
     @Test
     public void testProcessTransferTransaction(){
         Customer customer1 = new Customer("CK Boss");
