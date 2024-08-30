@@ -71,18 +71,6 @@ public class CustomerControllerTest {
         }
     }
 
-//    @Test
-//    public void testGetCustomerById() {
-//        try {add
-//            when(customerService.getCustomerById(2L)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//            mockMvc.perform(get("/customer/2"))
-//                    .andExpect(status().isNotFound());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     @Test
     public void testRegisterCustomer() {
         try {
