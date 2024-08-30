@@ -14,9 +14,4 @@ public class CreateAccountRequestDTO {
     private String accountName;
     private Double openingBalance;
 
-    public CreateAccountRequestDTO(String accountName, Long customerId, Double openingBalance) {
-        this.accountName = accountName;
-        this.customerId = customerId;
-        this.openingBalance = openingBalance;
-    }
 }

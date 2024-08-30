@@ -61,6 +61,7 @@ import java.util.List;
 @Table(name = "customers", schema = "banking")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id

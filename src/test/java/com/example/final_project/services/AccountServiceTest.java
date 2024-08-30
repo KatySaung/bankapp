@@ -1,20 +1,16 @@
 package com.example.final_project.services;
 
 import com.example.final_project.dto.AccountDTO;
-import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.AccountRepository;
-import com.example.final_project.service.AccountService;
-import com.example.final_project.service.AccountServiceImplm;
+import com.example.final_project.service.implementations.AccountServiceImplm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;

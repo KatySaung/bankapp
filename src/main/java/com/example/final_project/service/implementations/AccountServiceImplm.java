@@ -1,4 +1,4 @@
-package com.example.final_project.service;
+package com.example.final_project.service.implementations;
 
 import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.dto.CreateAccountRequestDTO;
@@ -8,6 +8,7 @@ import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.repository.CustomerRepository;
+import com.example.final_project.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

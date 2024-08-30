@@ -1,4 +1,4 @@
-package com.example.final_project.service;
+package com.example.final_project.service.implementations;
 
 import com.example.final_project.dto.TransactionDTO;
 import com.example.final_project.dto.TransactionRequestDTO;
@@ -6,6 +6,7 @@ import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Transaction;
 import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.repository.TransactionRepository;
+import com.example.final_project.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

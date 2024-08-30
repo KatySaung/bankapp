@@ -1,7 +1,8 @@
-package com.example.final_project.service;
+package com.example.final_project.service.implementations;
 
 import com.example.final_project.entities.BankInfo;
 import com.example.final_project.repository.BankInfoRepository;
+import com.example.final_project.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
