@@ -22,6 +22,11 @@ public class TransactionServiceImplm implements TransactionService {
     @Autowired
     private AccountRepository accountRepository;
 
+    public TransactionServiceImplm(TransactionRepository transactionRepository, AccountRepository accountRepository) {
+        this.transactionRepository = transactionRepository;
+        this.accountRepository = accountRepository;
+    }
+
     @Transactional
     public TransactionDTO processTransaction(TransactionRequestDTO request) {
         // Map the transaction type based on the request
