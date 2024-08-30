@@ -82,9 +82,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AccountControllerTest {
@@ -108,8 +105,6 @@ public class AccountControllerTest {
         account = new AccountDTO(1,1234,"checking",100.00,transactions,200.00,1L);
         responseDTO = new CreateAccountResponseDto(1,1234,"checking",100.00,1L);
         requestDTO = new CreateAccountRequestDTO();
-
-
 
     }
 
@@ -148,16 +143,13 @@ public class AccountControllerTest {
     @Test
     public void testCreateAccount_Success() {
         try {
-
-
-            when(accountService.createAccount(requestDTO)).thenReturn(responseDTO);
+            when(accountService.createAccount(any(CreateAccountRequestDTO.class))).thenReturn(responseDTO);
 
             mockMvc.perform(get("/account/1")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(responseDTO.getAccountNumber())))
-
-
-
+                            .andExpect(status().isCreated())
+                            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                             .andExpect(jsonPath("$.accountNumber").value(1))
                             .andExpect(jsonPath("$.sortCode").value(1234))
                             .andExpect(jsonPath("$.accountName").value("checking"))

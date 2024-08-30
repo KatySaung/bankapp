@@ -47,7 +47,6 @@ public class CustomerControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     private CustomerDTO customerDTO;
 
     @BeforeEach
@@ -58,9 +57,6 @@ public class CustomerControllerTest {
         customerDTO.setId(1L);
         customerDTO.setFullName("Test Customer");
         customerDTO.setAccounts(accounts);
-
-
-
 
     }
 
@@ -103,10 +99,7 @@ public class CustomerControllerTest {
             mockMvc.perform(post("/customer")
                             .contentType(MediaType.TEXT_PLAIN)
                             .content(objectMapper.writeValueAsString(customerDTO.getFullName())))
-
-
                             .andExpect(status().isCreated())
-
                             .andExpect(jsonPath("$.id").value(1))
                             .andExpect(jsonPath("$.fullName").value("Test Customer"))
                             .andExpect(jsonPath("$.accounts").value(1));
