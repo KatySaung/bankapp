@@ -1,10 +1,10 @@
-package com.example.final_project.service;
+package com.example.final_project.service.implementations;
 
-import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.CustomerRepository;
+import com.example.final_project.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

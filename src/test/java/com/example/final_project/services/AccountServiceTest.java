@@ -1,19 +1,29 @@
 package com.example.final_project.services;
 
 import com.example.final_project.dto.AccountDTO;
+<<<<<<< HEAD
 import com.example.final_project.dto.CreateAccountResponseDto;
 import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.service.AccountServiceImplm;
+=======
+import com.example.final_project.entities.Account;
+import com.example.final_project.entities.Customer;
+import com.example.final_project.repository.AccountRepository;
+import com.example.final_project.service.implementations.AccountServiceImplm;
+>>>>>>> 766fa48578cdbb34ff436900fa4eed3fb766e73e
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 766fa48578cdbb34ff436900fa4eed3fb766e73e
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;

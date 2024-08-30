@@ -53,6 +53,7 @@ package com.example.final_project.controller;
 import com.example.final_project.dto.CustomerDTO;
 import com.example.final_project.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -81,7 +82,7 @@ public class CustomerController {
         return ResponseEntity.status(201).body(newCustomer);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{customerNumber}")
     public ResponseEntity<Double> deleteCustomer(@PathVariable Long customerNumber) {
         try {
             double totalFunds = customerService.deleteCustomer(customerNumber);

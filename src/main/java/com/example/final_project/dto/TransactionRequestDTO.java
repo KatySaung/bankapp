@@ -1,11 +1,13 @@
 package com.example.final_project.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-
+@NoArgsConstructor
 public class TransactionRequestDTO {
     private Integer type;
     private Integer fromAccount;
