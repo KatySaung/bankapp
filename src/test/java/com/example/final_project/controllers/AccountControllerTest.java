@@ -99,14 +99,14 @@ public class AccountControllerTest {
     private ObjectMapper objectMapper;
 
 
-    private CreateAccountResponseDto responseDTO;
+    private CreateAccountResponseDTO responseDTO;
     private AccountDTO account;
     private CreateAccountRequestDTO requestDTO;
     @BeforeEach
     void setup() {
         List<TransactionDTO> transactions = new ArrayList<>();
         account = new AccountDTO(1,1234,"checking",100.00,transactions,200.00,1L);
-        responseDTO = new CreateAccountResponseDto(1,1234,"checking",100.00,1L);
+        responseDTO = new CreateAccountResponseDTO(1,1234,"checking",100.00,1L);
         requestDTO = new CreateAccountRequestDTO();
 
     }
