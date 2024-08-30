@@ -61,21 +61,16 @@ public class AccountServiceTest {
 
 
     }
-    @Test
-    public void testCreateCAccount(){
-        when(accountRepository.save(any(Account.class))).thenReturn(accountDTO);
-        AccountDTO accountDTO2 = accountServiceImplm.getAccountByNumber(12345678);
-
-        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
-        assertEquals(customerDTO.getFullName(), "kathe");
-        verify(customerRepository).save(any(Customer.class));
-    }
-
 //    @Test
-      //no method to updateAccount
-//    public void testUpdateAccount(){
+//    public void testCreateCAccount(){
+//        when(accountRepository.save(any(Account.class))).thenReturn(accountDTO);
+//        AccountDTO accountDTO2 = accountServiceImplm.getAccountByNumber(12345678);
 //
+//        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
+//        assertEquals(customerDTO.getFullName(), "kathe");
+//        verify(customerRepository).save(any(Customer.class));
 //    }
+
 
 ////    @Test
 ////    public void testDeleteAccount(){

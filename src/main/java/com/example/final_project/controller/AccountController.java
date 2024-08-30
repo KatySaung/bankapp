@@ -2,7 +2,7 @@ package com.example.final_project.controller;
 
 import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.dto.CreateAccountRequestDTO;
-import com.example.final_project.dto.CreateAccountResponseDto;
+import com.example.final_project.dto.CreateAccountResponseDTO;
 import com.example.final_project.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +38,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateAccountResponseDto> createAccount(@RequestBody CreateAccountRequestDTO requestDto) {
-        CreateAccountResponseDto newAccount = accountService.createAccount(requestDto);
+    public ResponseEntity<CreateAccountResponseDTO> createAccount(@RequestBody CreateAccountRequestDTO requestDTO) {
+        CreateAccountResponseDTO newAccount = accountService.createAccount(requestDTO);
         return ResponseEntity.status(201).body(newAccount);
     }
 

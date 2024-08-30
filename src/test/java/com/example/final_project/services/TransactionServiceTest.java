@@ -7,7 +7,7 @@ import com.example.final_project.entities.Customer;
 import com.example.final_project.entities.Transaction;
 import com.example.final_project.repository.AccountRepository;
 import com.example.final_project.repository.TransactionRepository;
-import com.example.final_project.service.TransactionServiceImplm;
+import com.example.final_project.service.implementations.TransactionServiceImplm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

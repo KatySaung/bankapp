@@ -2,7 +2,7 @@ package com.example.final_project.service.implementations;
 
 import com.example.final_project.dto.AccountDTO;
 import com.example.final_project.dto.CreateAccountRequestDTO;
-import com.example.final_project.dto.CreateAccountResponseDto;
+import com.example.final_project.dto.CreateAccountResponseDTO;
 import com.example.final_project.dto.TransactionDTO;
 import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
@@ -41,7 +41,7 @@ public class AccountServiceImplm implements AccountService {
                 account.getCustomer().getCustomerId());
     }
 
-    public CreateAccountResponseDto createAccount(CreateAccountRequestDTO requestDto) {
+    public CreateAccountResponseDTO createAccount(CreateAccountRequestDTO requestDto) {
         Customer customer = customerRepository.findById(requestDto.getCustomerId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer ID not found."));
 
@@ -55,7 +55,7 @@ public class AccountServiceImplm implements AccountService {
 
         accountRepository.save(account);
 
-        return new CreateAccountResponseDto(
+        return new CreateAccountResponseDTO(
                 account.getAccountNumber(),
                 account.getSortCode(),
                 account.getAccountName(),
