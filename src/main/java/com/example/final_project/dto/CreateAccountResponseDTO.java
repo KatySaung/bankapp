@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreateAccountResponseDto {
+public class CreateAccountResponseDTO {
     private Integer accountNumber;
     private Integer sortCode;
     private String accountName;
     private Double balance;
     private Long customerId;
 
-    public CreateAccountResponseDto(Integer accountNumber, Integer sortCode, String accountName, Double balance, Long customerId) {
+    public CreateAccountResponseDTO(Integer accountNumber, Integer sortCode, String accountName, Double balance, Long customerId) {
         this.accountNumber = accountNumber;
         this.sortCode = sortCode;
         this.accountName = accountName;
