@@ -92,6 +92,9 @@ public class AccountControllerTest {
     @MockBean
     private AccountService accountService;
 
+    @MockBean
+    private CustomerService customerService;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -109,10 +112,8 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testGetAccountByNumber_Success() {
+    public void testGetAccountByNumber() {
         try {
-//            Account acc = new Account();
-//            acc.setAccountNumber(1);
             when(accountService.getAccountByNumber(1)).thenReturn(account);
 
             mockMvc.perform(get("/account/1"))
@@ -126,55 +127,49 @@ public class AccountControllerTest {
         }
     }
 
-//    @Test
-//    public void testGetAccountByNumber_NotFound() {
-//        try {
-//
-//            when(accountService.getAccountByNumber(2)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//            mockMvc.perform(get("/account/2"))
-//                    .andExpect(status().isNotFound());
-//        } catch (Exception e) {
-//            // Handle exceptions
-//            e.printStackTrace();
-//        }
-//    }
-//
     @Test
-    public void testCreateAccount_Success() {
+    public void testGetAccountByNumberNotFound() {
         try {
-            when(accountService.createAccount(any(CreateAccountRequestDTO.class))).thenReturn(responseDTO);
-
-            mockMvc.perform(get("/account/1")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(responseDTO.getAccountNumber())))
-                            .andExpect(status().isCreated())
-                            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                            .andExpect(jsonPath("$.accountNumber").value(1))
-                            .andExpect(jsonPath("$.sortCode").value(1234))
-                            .andExpect(jsonPath("$.accountName").value("checking"))
-                            .andExpect(jsonPath("$.balance").value(100.00))
-                            .andExpect(jsonPath("$.customerId").value(1));
+            when(accountService.getAccountByNumber(2)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+            mockMvc.perform(get("/account/2"))
+                    .andExpect(status().isNotFound());
         } catch (Exception e) {
             // Handle exceptions
             e.printStackTrace();
         }
     }
 
-//    @Test
-//    public void testDeleteCustomer_Success() {
-//
-//        try {
-//            double balance = 100.00;
-//            when(customerService.deleteCustomer(1L)).thenReturn(balance);
-//
-//            mockMvc.perform(delete("/customer/1"))
-//                    .andExpect(status().isOk())
-//                    .andExpect(content().string(String.valueOf(balance)));
-//        } catch (Exception e) {
-//            // Handle exceptions
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    public void testCreateAccount() {
+        try {
+            when(accountService.createAccount(any())).thenReturn(responseDTO);
+
+            mockMvc.perform(post("/account")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(requestDTO)))
+                            .andExpect(status().isCreated())
+                            .andExpect(jsonPath("$.accountNumber").value(1))
+                            .andExpect(jsonPath("$.sortCode").value(1234))
+                            .andExpect(jsonPath("$.accountName").value("checking"))
+                            .andExpect(jsonPath("$.balance").value(100.00))
+                            .andExpect(jsonPath("$.customerId").value(1L));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDeleteCustomer() {
+        try {
+            double balance = 100.00;
+            when(customerService.deleteCustomer(1L)).thenReturn(balance);
+
+            mockMvc.perform(delete("/customer/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string(String.valueOf(balance)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

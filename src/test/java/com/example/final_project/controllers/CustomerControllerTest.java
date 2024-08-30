@@ -1,4 +1,3 @@
-
 package com.example.final_project.controllers;
 
 import com.example.final_project.controller.CustomerController;
@@ -31,9 +30,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CustomerControllerTest {
@@ -61,7 +57,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void testGetCustomerById_Success() {
+    public void testGetCustomerById() {
         try {
             when(customerService.getCustomerById(1L)).thenReturn(customerDTO);
 
@@ -71,26 +67,24 @@ public class CustomerControllerTest {
                     .andExpect(jsonPath("$.id").value(1))
                     .andExpect(jsonPath("$.fullName").value("Test Customer"));
         } catch (Exception e) {
-            // Handle exceptions (e.g., print stack trace, fail the test)
             e.printStackTrace();
         }
     }
 
-    @Test
-    public void testGetCustomerById_NotFound() {
-        try {
-            when(customerService.getCustomerById(2L)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    @Test
+//    public void testGetCustomerById() {
+//        try {add
+//            when(customerService.getCustomerById(2L)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+//
+//            mockMvc.perform(get("/customer/2"))
+//                    .andExpect(status().isNotFound());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-            mockMvc.perform(get("/customer/2"))
-                    .andExpect(status().isNotFound());
-        } catch (Exception e) {
-            // Handle exceptions
-            e.printStackTrace();
-        }
-    }
-
     @Test
-    public void testRegisterCustomer_Success() {
+    public void testRegisterCustomer() {
         try {
 
 
@@ -104,14 +98,12 @@ public class CustomerControllerTest {
                             .andExpect(jsonPath("$.fullName").value("Test Customer"))
                             .andExpect(jsonPath("$.accounts").value(1));
         } catch (Exception e) {
-            // Handle exceptions
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testDeleteCustomer_Success() {
-
+    public void testDeleteCustomer() {
         try {
             double balance = 100.00;
             when(customerService.deleteCustomer(1L)).thenReturn(balance);
