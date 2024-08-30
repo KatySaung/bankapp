@@ -13,8 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -42,13 +40,10 @@ public class AccountServiceTest {
 
         customer = new Customer("Tony Stark");
         customer.setCustomerId(1L); //need customer id because it is in customer class. without this here, will get error
-//        Account account = new Account(12345678,1234,"Tony Stark's Account", "Checking",1000.00, customer);
-//        System.out.println("Customer ID: " + customer.getCustomerId());
 
     }
 
     @Test
-    //Failed Test, RunTime Exception from AccountServiceImplmn line 29. Add null conditional for testing in line 32-34.
     public void testFindAccountByNumber(){
         Account account = new Account(12345678,1234,"Steve Checking Acct","CHECKING",5000.00, customer);
         when(accountRepository.findByAccountNumber(12345678)).thenReturn(Optional.of(account));
@@ -65,14 +60,15 @@ public class AccountServiceTest {
 
 
     }
-//    @Test
-//    public void testCreateCAccount(){
-//        when(accountRepository.save(account)).thenReturn(account.);
-//        customerDTO = customerService.registerCustomer("kathe");
-//        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
-//        assertEquals(customerDTO.getFullName(), "kathe");
-//        verify(customerRepository).save(any(Customer.class));
-//    }
+    @Test
+    public void testCreateCAccount(){
+        when(accountRepository.save(any(Account.class))).thenReturn(accountDTO);
+        AccountDTO accountDTO2 = accountServiceImplm.getAccountByNumber(12345678);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(new Customer("kathe"));
+        assertEquals(customerDTO.getFullName(), "kathe");
+        verify(customerRepository).save(any(Customer.class));
+    }
 
 //    @Test
       //no method to updateAccount
