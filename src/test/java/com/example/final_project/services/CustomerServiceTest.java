@@ -2,6 +2,7 @@ package com.example.final_project.services;
 
 
 import com.example.final_project.dto.CustomerDTO;
+import com.example.final_project.entities.Account;
 import com.example.final_project.entities.Customer;
 import com.example.final_project.repository.CustomerRepository;
 import com.example.final_project.service.CustomerService;
@@ -16,14 +17,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -68,7 +66,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void testCustomerById() {
+    public void testGetCustomerById() {
         Customer customer = new Customer(1L , "tchico");
 
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
@@ -84,27 +82,46 @@ public class CustomerServiceTest {
     @Test
     public void testDeleteCustomer() {
         Customer customer = new Customer(1L , "tchico");
+        Account account1 = new Account(12345678, 1234, "Tiego Savings", "Savings", 700.00, customer);
+        Account account2 = new Account(87654321, 1234, "Tiego Checking", "Checking",1000.00,customer);
+
+        customer.setAccounts(Arrays.asList(account1, account2));
 
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
 
-        CustomerDTO customer2 = customerService.getCustomerById(1L);
+        double totalBalance = customerService.deleteCustomer(1L);
 
-        assertEquals("","");
+        assertEquals(1700.00,totalBalance);
 
         verify(customerRepository).findById(1L);
+        verify(customerRepository).delete(customer);
     }
 
     @Test
     public void testFindAllCustomers(){
         List<Integer> accounts = new ArrayList<>();
+        Customer customer = new Customer(1L, "tchico");
+        List<Customer> customerList = Collections.singletonList(customer);
 
-        CustomerDTO customerDTO = new CustomerDTO(1L , "tchico", accounts);
-        when(customerService.findAllCustomers().thenReturn(customerDTO));
+        when(customerRepository.findAll()).thenReturn(customerList);
 
-        assertNotNull(customerDTO, "AccountDTO should not be null");
-        assertEquals("tchico", customerDTO.getFullName());
-        assertEquals(1L, customerDTO.getId());
-        assertEquals(accounts, customerDTO.getAccounts());
+        List<CustomerDTO> customers = customerService.findAllCustomers();
+        CustomerDTO customerDTO = new CustomerDTO(1L, "tchico",accounts);
+        CustomerDTO findCustomerDTO = customers.get(0);
+
+        //one customer tchico should be in Customer list CustomerDTO.
+        assertNotNull(customers);
+        assertFalse(customers.isEmpty());
+
+        //FAILING THE EXPECTED IS 1 BUT THE ACTUAL IS NULL
+        assertEquals(1,customers.size());
+
+
+        assertEquals(customerDTO.getFullName(), findCustomerDTO.getFullName());
+        assertEquals(customerDTO.getId(), findCustomerDTO.getId());
+        assertEquals(customerDTO.getAccounts(), findCustomerDTO.getAccounts());
+
+        verify(customerRepository).findAll();
 
 
     }

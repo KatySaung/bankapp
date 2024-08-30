@@ -89,6 +89,7 @@ public class Customer {
         this.accounts = new ArrayList<>();  // Initialize list in constructor
     }
 
+
     public void addAccount(Account account) {
         accounts.add(account);
         account.setCustomer(this);

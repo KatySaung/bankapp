@@ -9,8 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+//Commented out @Getter @Setter because @Data should include both.
+//@Getter
+//@Setter
+
 @Entity
 @Table(name = "accounts", schema = "banking")
 @Data
@@ -50,4 +52,6 @@ public class Account {
         this.customer = customer;
     }
 
+    public Account(int i, int i1, String acc) {
+    }
 }
