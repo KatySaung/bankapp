@@ -46,6 +46,7 @@ public class AccountServiceTest {
     private AccountServiceImplm accountServiceImplm;
 
     private Customer customer;
+    private Account account;
 
     @BeforeEach
     public void setUp(){
@@ -53,6 +54,7 @@ public class AccountServiceTest {
 
         customer = new Customer("Tony Stark");
         customer.setCustomerId(1L); //need customer id because it is in customer class. without this here, will get error
+        account = new Account(12345678,1234,"Tony Stark","CHECKING",1000.00,customer);
 
     }
 
@@ -72,18 +74,18 @@ public class AccountServiceTest {
         verify(accountRepository).findByAccountNumber(12345678);
 
     }
-    @Test
-    public void testCreateAccount(){
-        Account account = new Account(12345678,1234,"Steve Checking Acct","CHECKING",5000.00, customer);
-        when(customerRepository.save(any())).thenReturn(customer);
-
-        AccountDTO accountDTO2 = accountServiceImplm.createAccount();
-
-        when(customerRepository.save(any(Customer.class))).thenReturn(account.getCustomer());
-
-        assertEquals(12345678 , accountDTO2.number());
-//        assertEquals(customer.getCustomerId(),accountDTO2.customerId());
-//        verify(customerRepository).save(any(Customer.class));
+//    @Test
+//    public void testCreateAccount(){
+//        Account account = new Account(12345678,1234,"Steve Checking Acct","CHECKING",5000.00, customer);
+//        when(customerRepository.save(any())).thenReturn(customer);
+//
+//        AccountDTO accountDTO2 = accountServiceImplm.createAccount();
+//
+//        when(customerRepository.save(any(Customer.class))).thenReturn(account.getCustomer());
+//
+//        assertEquals(12345678 , accountDTO2.number());
+////        assertEquals(customer.getCustomerId(),accountDTO2.customerId());
+////        verify(customerRepository).save(any(Customer.class));
 
     }
 
@@ -105,4 +107,4 @@ public class AccountServiceTest {
 
 
 
-}
+

@@ -85,6 +85,7 @@ public class Customer {
     }
 
     public Customer(Long id , String fullName) {
+        this.customerId = id;
         this.fullName = fullName;
         this.username = fullName.toLowerCase().replaceAll(" ", "");
         this.accounts = new ArrayList<>();  // Initialize list in constructor

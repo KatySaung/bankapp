@@ -53,14 +53,14 @@ public class CustomerServiceTest {
 
     @Test
     public void testRegisterCustomer() {
-        Customer customer = new Customer("tchico");
+        Customer customer = new Customer(1L,"tchico");
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        CustomerDTO customer2 = customerService.registerCustomer("tchico");
+        CustomerDTO customerDTO = customerService.registerCustomer("tchico");
 
-        assertEquals("tchico",customer2.getFullName());
-        assertEquals(1L, customer2.getId());
+        assertEquals("tchico",customerDTO.getFullName());
+        assertEquals(1L, customerDTO.getId());
 
         verify(customerRepository).save(any(Customer.class));
     }
