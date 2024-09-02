@@ -42,10 +42,16 @@ public class AccountServiceTest {
     private AccountServiceImplm accountServiceImplm;
 
     private Customer customer;
+    private Customer customer2;
     private CustomerDTO customerDTO;
     private Account account;
+    private Account account2;
     private CreateAccountRequestDTO requestDto;
     private CreateAccountResponseDTO responseDTO;
+
+    private AccountDTO accountDTO1;
+    private AccountDTO accountDTO2;
+
 
     @BeforeEach
     public void setUp() {
@@ -54,8 +60,18 @@ public class AccountServiceTest {
         customer = new Customer("Tony Stark");
         customer.setCustomerId(1L); //need customer id because it is in customer class. without this here, will get error
         account = new Account(12345678, 1234, "Tony Stark", "CHECKING", 1000.00, customer);
+
+
+        customer2 = new Customer("Pepper Potts");
+        customer2.setCustomerId(2L); //need customer id because it is in customer class. without this here, will get error
+        account2 = new Account(87654321, 4321, "Pepper Potts", "SAVINGS", 2000.00, customer2);
+
         requestDto = new CreateAccountRequestDTO(1L,"Tony Stark", 1000.00);
         responseDTO = new CreateAccountResponseDTO(12345678,1234,"Tony Stark",1000.00,1L);
+
+        accountDTO1 = new AccountDTO(12345678,1234, "Tony Stark",1000.00, new ArrayList<>(), 1000.00, 1L);
+        accountDTO2 = new AccountDTO(87654321,4321, "Pepper Potts",2000.00, new ArrayList<>(), 2000.00, 2L);
+
 
     }
 
@@ -102,19 +118,45 @@ public class AccountServiceTest {
     }
 
 
-////    @Test
-////    public void testDeleteAccount(){
-////        account.getAccountNumber(accountNumber);
-////        when(accountRepository.findByAccountNumber()).thenReturn();
-////        verify(accountRepository.deleteByAccountNumber.getAccountNumber();
-////
-////    }
-//
-//    @Test
-//    public void testFindAllAccounts(){
-//
-//
-//    }
+    @Test
+    public void testDeleteAccount(){
+        when(accountRepository.findByAccountNumber(account.getAccountNumber())).thenReturn(Optional.of(account));
+        //mockito method doNothing() used here to mock this delete method because will not return a value, so it's a void method
+        doNothing().when(accountRepository).delete(account);
+
+        //create variable currentBalance to verify method returns a current balance after account is deleted
+        double currentBalance = accountServiceImplm.deleteAccount(account.getAccountNumber());
+
+        //verify account balance matches currentBalance
+        assertEquals(account.getBalance(), currentBalance);
+
+        verify(accountRepository).findByAccountNumber(account.getAccountNumber());
+        verify(accountRepository).delete(account);
+
+    }
+
+    @Test
+    public void testFindAllAccounts(){
+        //list for expected AccountDTOs
+        List<AccountDTO> expectedAccountDTOS =List.of(accountDTO1,accountDTO2);
+
+        when(accountRepository.findAll()).thenReturn(List.of(account, account2));
+
+        //list for actual AccountDTOs
+        List<AccountDTO> actualAccountDTOs = accountServiceImplm.getAllAccounts();
+
+        assertNotNull(actualAccountDTOs);
+        assertEquals(expectedAccountDTOS.size(), actualAccountDTOs.size());
+
+        //compare both DTO lists to make sure the accounts match the actual DTO
+        for (int i = 0; i < expectedAccountDTOS.size(); i++){
+            assertEquals(expectedAccountDTOS.get(i), actualAccountDTOs.get(i));
+        }
+
+        verify(accountRepository).findAll();
+
+
+    }
 
 }
 
